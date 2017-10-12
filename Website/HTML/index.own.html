@@ -10,6 +10,7 @@
 <body>
 
 <script src="C:\Users\kieligerm\Desktop\Website\JS\testScript.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <div class='header'>
 	<h1>Hi! Welcome to our Staffplanner</h1>
@@ -33,15 +34,15 @@
 		<input type='password'placeholder='confirm your password' name='pw' required><br>
 	</div>
 </div>
-
-<p id="demo">A Paragraph.</p>
-
-<button type="button" onclick="myFunction()">Try it</button>
-
-<div class='footer'>
-	 <label>About</label>
-	<label>Impressum</label>
-	<label>Contact</label>
+<div>
+	<div class='test-capture'><h2>Test-Capture</h2><br>
+		<label>Beispieltext1</label> <br>
+		<input type="text" id="bsptxt1" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
+		<button type="button" onclick="exportToFile()">Export to file</button>
+		<button type="button" onclick="timeDifference()">Calculate difference</button>
+		<p id="time"></p>
+	</div>
 </div>
+
 </body>
 </html>
