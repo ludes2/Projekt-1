@@ -34,13 +34,15 @@
 		<input type='password'placeholder='confirm your password' name='pw' required><br>
 	</div>
 </div>
+
 <div>
 	<div class='test-capture'><h2>Test-Capture</h2><br>
 		<label>Beispieltext1</label> <br>
 		<input type="text" id="bsptxt1" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
 		<button type="button" onclick="exportToFile()">Export to file</button>
-		<button type="button" onclick="timeDifference()">Calculate difference</button>
+		<button type="button" onclick="compareInput()">Compare difference</button>
 		<p id="time"></p>
+		<p id="difference"></p>
 	</div>
 </div>
 

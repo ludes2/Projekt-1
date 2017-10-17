@@ -1,16 +1,13 @@
-function getText() {
-
-    var txt1 = document.getElementById('bsptxt1').value;
-
-    document.getElementById('demo').innerHTML = txt1;
-}
 
 
 /*Variablen definieren*/
 var time1; /*für differenz ausrechnen (in millisekunden)*/
 var time2; /*für differenz ausrechnen (in millisekunden)*/
 var difference; /*time2 - time1*/
-var saveDifference; /*Array timeDifference*/
+var saveDifference = []; /*Array timeDifference*/
+var testArray = ["86", "139", "98", "79", "66", "83"];
+var count = 0;
+
 
 /*Zeit wenn die Taste gedrückt wurde*/
 function keydownFunction() {
@@ -22,30 +19,20 @@ function keydownFunction() {
 function keyupFunction() {
 
     time2 = new Date();
-}
-
-/*Differenz zwischen keydown und keyup berechnen*/
-function timeDifference() {
 
     difference = time2.getTime() - time1.getTime(); /*getTime kriegt zeit in millisekunden*/
 
-    document.getElementById('time').innerHTML = "Differenz: " + difference;
+    document.getElementById('time').innerHTML = "Differenz: " + difference; /*Show difference*/
 
-
-
-    for (var i = 0; i < (saveDifference.length);i++) {
-        saveDifference = [];
-        saveDifference.push(difference);
-    }
+    saveDifference.push(difference); /*wert dem array hinzufügen*/
 }
 
-/*Text von Textbox in myFile speichern*/
+/*Als txt Datei speichern*/
 function exportToFile() {
 
-    /*var txt1 = document.getElementById('bsptxt1').value;*/
-    var txt1 = document.getElementById('bsptxt1').innerHTML = saveDifference;
+    var fileText = saveDifference; /*Array*/
 
-    var textToSave = txt1;
+    var textToSave = fileText;
 
     var hiddenElement = document.createElement('a');
 
@@ -53,4 +40,22 @@ function exportToFile() {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'myFile.txt';
     hiddenElement.click();
+}
+
+/*Vergleicht die Eingabe mit dem vorgegeben Text. Wenn Werte mehr als 20 ms auseinander -> False */
+function compareInput() {
+
+    for (var i = 0; i < testArray.length; i++) {
+        if (Math.abs(testArray[i] - saveDifference[i]) > 20) {
+            count++;
+        } else {
+            count = count;
+        }
+    }
+
+    if (count == 0) {
+        document.getElementById('difference').innerHTML = "True: " + count;
+    } else {
+        document.getElementById('difference').innerHTML = "False: " + count;
+    }
 }
