@@ -42,7 +42,7 @@ function exportToFile() {
     hiddenElement.click();
 }
 
-/*Vergleicht die Eingabe mit dem vorgegeben Text. Wenn Werte mehr als 20 ms auseinander -> False */
+/*Vergleicht die Eingabe (Latency) mit dem vorgegeben Text. Wenn Werte mehr als 20 ms auseinander -> False */
 function compareInput() {
 
     for (var i = 0; i < testArray.length; i++) {
