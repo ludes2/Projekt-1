@@ -5,8 +5,8 @@ var time1; /*für differenz ausrechnen (in millisekunden)*/
 var time2; /*für differenz ausrechnen (in millisekunden)*/
 var difference; /*time2 - time1*/
 var saveDifference = []; /*Array timeDifference*/
-var testArray = ["86", "139", "98", "79", "66", "83"];
-var count = 0;
+var testArray = ["86", "139", "98", "79", "66", "83"]; /* Array mit "Hallo" */
+var count = 0; /*Zählt die Unstimmigkeiten */
 
 
 /*Zeit wenn die Taste gedrückt wurde*/
@@ -42,14 +42,12 @@ function exportToFile() {
     hiddenElement.click();
 }
 
-/*Vergleicht die Eingabe (Latency) mit dem vorgegeben Text. Wenn Werte mehr als 20 ms auseinander -> False */
-function compareInput() {
+/*Vergleicht die Eingabe (Latency) mit dem vorgegeben Text. Wenn Werte mehr als 25 ms auseinander -> False */
+function compareLatency() {
 
     for (var i = 0; i < testArray.length; i++) {
-        if (Math.abs(testArray[i] - saveDifference[i]) > 20) {
+        if (Math.abs(testArray[i] - saveDifference[i]) > 25) {
             count++;
-        } else {
-            count = count;
         }
     }
 
