@@ -8,8 +8,8 @@
 </head>
 
 <body>
-
 <script src="../JS/testScript.js"></script>
+<script src="../JS/latencyTest.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <div class='header'>
@@ -35,6 +35,22 @@
 	</div>
 </div>
 
+<div class="exempleText">
+	<h2>Bitte den untenstehenden Text abtippen</h2>
+	<p> Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore
+		et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum.
+		Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+		consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+		sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea
+		takimata sanctus est Lorem ipsum dolor sit amet.</p>
+</div>
+<form>
+	<textarea name="textarea" id="inputArea" rows="20" cols="200" onkeydown="keyDown()" onkeyup="keyUp()">
+	</textarea>
+	<button type="button" onclick="showContent()">Export to file</button>
+	<p id="areaContent"></p>
+</form>
+
 <div>
 	<div class='test-capture'><h2>Test-Capture</h2><br>
 		<label>Beispieltext1</label> <br>
@@ -45,6 +61,8 @@
 		<p id="difference"></p>
 	</div>
 </div>
+
+
 
 </body>
 </html>
