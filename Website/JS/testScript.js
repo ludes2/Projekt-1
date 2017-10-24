@@ -25,12 +25,14 @@ function keyupFunction() {
 
     difference = time2.getTime() - time1.getTime(); /*getTime kriegt zeit in millisekunden*/
 
-    document.getElementById('time').innerHTML = "Differenz: " + difference + "KeyCode: " + event.keyCode; /*Show difference*/
+    document.getElementById('time').innerHTML = "Differenz: " + difference + "KeyCode: " + event.keyCode  /*Show difference*/
 
     saveKey[0][countKey] = "Differenz: " + difference;
     saveKey[1][countKey] = "KeyCode: " + event.keyCode;
     countKey = countKey + 1; /*Nächste Zeile */
+
 }
+
 
 /*Als txt Datei speichern*/
 function exportToFile() {
