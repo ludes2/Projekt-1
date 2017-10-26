@@ -44,8 +44,10 @@
 		<button type="button" onclick="exportToFile()">Export to file</button>
 		<button type="button" onclick="compareDuration()">Compare Duration</button>
         <button type="button" onclick="compareLatency()">Compare Latency</button>
+        <button type="button" onclick="createCookies()">Create Cookie</button>
+        <button type="button" onclick="validate()">Validate</button>
 		<p id="time"></p>
-		<p id="difference"></p>
+		<p id="result"></p>
 	</div>
 </div>
 
