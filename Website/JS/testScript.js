@@ -70,7 +70,7 @@ function compareLatency() {
 /*Array als txt Datei speichern*/
 function exportToFile() {
 
-    var fileText = validateDuration; /*Array*/
+    var fileText = saveDuration; /*Array*/
 
     var textToSave = fileText;
 
@@ -86,7 +86,7 @@ function exportToFile() {
 function createCookies() {
 
     /* Counter wird im LocalStorage gespeichert, damit nach reload der Page nicht der counter = 0 ist */
-    if (localStorage.clickcount >= 10) {
+    if (localStorage.clickcount >= 5) {
         localStorage.clickcount = 0;
     }
 
@@ -116,12 +116,17 @@ function validate() {
     var json_str3 = getCookie("durationCookie3");
     var jsonDuration3 = JSON.parse(json_str3);
 
+    var json_str4 = getCookie("durationCookie4");
+    var jsonDuration4 = JSON.parse(json_str4);
 
-    validateDuration[0] = Math.round((jsonDuration1[0] + jsonDuration2[0] + jsonDuration3[0]) / 3);
-    validateDuration[1] = Math.round((jsonDuration1[1] + jsonDuration2[1] + jsonDuration3[1]) / 3);
-    validateDuration[2] = Math.round((jsonDuration1[2] + jsonDuration2[2] + jsonDuration3[2]) / 3);
-    validateDuration[3] = Math.round((jsonDuration1[3] + jsonDuration2[3] + jsonDuration3[3]) / 3);
-    validateDuration[4] = Math.round((jsonDuration1[4] + jsonDuration2[4] + jsonDuration3[4]) / 3);
+    var json_str5 = getCookie("durationCookie5");
+    var jsonDuration5 = JSON.parse(json_str5);
+
+
+    for (var i = 0; i < jsonDuration1.length; i++) {
+
+        validateDuration[i] = Math.round((jsonDuration1[i] + jsonDuration2[i] + jsonDuration3[i] + jsonDuration4[i] + jsonDuration5[i]) / 5);
+    }
 
     alert(validateDuration); /*validateDuration würde dann in DB abgespeichert werden */
 }
