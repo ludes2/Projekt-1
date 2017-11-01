@@ -40,7 +40,7 @@ function keyupFunction() {
     saveKeyCode.push(event.keyCode);
     saveDuration.push(duration);
     saveLatency.push(latency);
-<<<<<<< HEAD
+
 
     /* Array wird bei jedem KeyUp um 1 erweitert
     saveKey[0][countKey] = compareDifference;
@@ -54,13 +54,13 @@ function keyupFunction() {
 /*Als txt Datei speichern*/
 
 /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
-var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
+//var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
 
-=======
+
 }
 
 
->>>>>>> origin/master
+
 function compareDuration() {
     /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
     var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
