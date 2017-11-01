@@ -42,7 +42,8 @@
 		<label>Beispieltext1</label> <br>
 		<input type="text" id="bsptxt1" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
 		<button type="button" onclick="exportToFile()">Export to file</button>
-		<button type="button" onclick="compareLatency()">Compare difference</button>
+		<button type="button" onclick="compareDuration()">Compare Duration</button>
+        <button type="button" onclick="compareLatency()">Compare Latency</button>
 		<p id="time"></p>
 		<p id="difference"></p>
 	</div>

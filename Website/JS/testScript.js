@@ -3,41 +3,86 @@
 /*Variablen definieren*/
 var time1; /*für differenz ausrechnen (in millisekunden)*/
 var time2; /*für differenz ausrechnen (in millisekunden)*/
-var difference; /*time2 - time1*/
-var count = 0; /*Zählt die Unstimmigkeiten */
+var duration; /*time2 - time1*/
+var latency;
 
-var saveKey = new Array();
-var countKey = 0; /*var für saveKey Array */
+var saveKeyCode = [];
+var saveDuration = [];
+var saveLatency = [];
 
-saveKey[0] = new Array(); /*Erste Spalte für difference */
-saveKey[1] = new Array(); /*Zweite Spalte für KeyCode */
+var time1Latency = []; /*Array für Latency */
+var time2Latency = []; /*Array für Latency */
+
+/* var countKey = 0; var für saveKey Array
+saveKey[0] = new Array(); Erste Spalte für difference
+saveKey[1] = new Array(); Zweite Spalte für KeyCode */
 
 /*Zeit wenn die Taste gedrückt wurde*/
 function keydownFunction() {
 
     time1 = new Date();
+    time1Latency.push(time1);
 }
 
 /*Zeit wenn die Taste losgelassen wurde*/
 function keyupFunction() {
 
     time2 = new Date();
+    time2Latency.push(time2);
 
-    difference = time2.getTime() - time1.getTime(); /*getTime kriegt zeit in millisekunden*/
+    duration = time2.getTime() - time1.getTime(); /*getTime kriegt zeit in millisekunden*/
+    latency = time2Latency[time2Latency.length-1] - time1Latency[time1Latency.length-2];
+
+    document.getElementById('time').innerHTML = "Duration: " + duration + " KeyCode: " + event.keyCode + " Latency: " + latency; /*Show difference*/
 
     document.getElementById('time').innerHTML = "Differenz: " + difference + "KeyCode: " + event.keyCode  /*Show difference*/
 
-    saveKey[0][countKey] = "Differenz: " + difference;
-    saveKey[1][countKey] = "KeyCode: " + event.keyCode;
+    saveKeyCode.push(event.keyCode);
+    saveDuration.push(duration);
+    saveLatency.push(latency);
+
+    /* Array wird bei jedem KeyUp um 1 erweitert
+    saveKey[0][countKey] = compareDifference;
+    saveKey[1][countKey] = event.keyCode;
     countKey = countKey + 1; /*Nächste Zeile */
 
 }
 
 
+
 /*Als txt Datei speichern*/
+
+/*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
+var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
+
+function compareDuration() {
+
+    for (var i = 0; i < saveDuration.length; i++) {
+        if (Math.abs(testDuration[i] - saveDuration[i]) > 30) {
+            alert("Fehler - Person nicht erkannt");
+            break;
+        }
+    }
+}
+
+
+/*Berechnet Latency */
+function compareLatency() {
+    var testLatency = ["0", "266","220","242","284"]; /* Array mit "hallo" */
+
+    for (var i = 1; i < saveLatency.length; i++) {
+        if (Math.abs(testLatency[i] - saveLatency[i]) > 50) {
+            alert("Fehler - Person nicht erkannt");
+            break;
+        }
+    }
+}
+
+
+/*Array als txt Datei speichern*/
 function exportToFile() {
 
-    var fileText = saveKey; /*Array*/
+    var fileText = saveLatency; /*Array*/
 
     var textToSave = fileText;
 
@@ -48,23 +93,3 @@ function exportToFile() {
     hiddenElement.download = 'myFile.txt';
     hiddenElement.click();
 }
-
-/*Vergleicht die Eingabe (Latency) mit dem vorgegeben Text. Wenn Werte mehr als 25 ms auseinander -> False
-
-var saveDifference = []; Array timeDifference
-var testArray = ["86", "139", "98", "79", "66", "83"]; /* Array mit "Hallo"
-
-function compareLatency() {
-
-    for (var i = 0; i < testArray.length; i++) {
-        if (Math.abs(testArray[i] - saveDifference[i]) > 25) {
-            count++;
-        }
-    }
-
-    if (count == 0) {
-        document.getElementById('difference').innerHTML = "True: " + count;
-    } else {
-        document.getElementById('difference').innerHTML = "False: " + count;
-    }
-} */
