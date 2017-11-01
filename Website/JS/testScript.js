@@ -10,12 +10,11 @@ var saveKeyCode = [];
 var saveDuration = [];
 var saveLatency = [];
 
+var validateDuration = [];
+
 var time1Latency = []; /*Array für Latency */
 var time2Latency = []; /*Array für Latency */
 
-/* var countKey = 0; var für saveKey Array
-saveKey[0] = new Array(); Erste Spalte für difference
-saveKey[1] = new Array(); Zweite Spalte für KeyCode */
 
 /*Zeit wenn die Taste gedrückt wurde*/
 function keydownFunction() {
@@ -23,6 +22,7 @@ function keydownFunction() {
     time1 = new Date();
     time1Latency.push(time1);
 }
+
 
 /*Zeit wenn die Taste losgelassen wurde*/
 function keyupFunction() {
@@ -40,6 +40,7 @@ function keyupFunction() {
     saveKeyCode.push(event.keyCode);
     saveDuration.push(duration);
     saveLatency.push(latency);
+<<<<<<< HEAD
 
     /* Array wird bei jedem KeyUp um 1 erweitert
     saveKey[0][countKey] = compareDifference;
@@ -55,7 +56,14 @@ function keyupFunction() {
 /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
 var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
 
+=======
+}
+
+
+>>>>>>> origin/master
 function compareDuration() {
+    /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
+    var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
 
     for (var i = 0; i < saveDuration.length; i++) {
         if (Math.abs(testDuration[i] - saveDuration[i]) > 30) {
@@ -82,7 +90,7 @@ function compareLatency() {
 /*Array als txt Datei speichern*/
 function exportToFile() {
 
-    var fileText = saveLatency; /*Array*/
+    var fileText = saveDuration; /*Array*/
 
     var textToSave = fileText;
 
@@ -92,4 +100,83 @@ function exportToFile() {
     hiddenElement.target = '_blank';
     hiddenElement.download = 'myFile.txt';
     hiddenElement.click();
+}
+
+
+function createCookies() {
+
+    /* Counter wird im LocalStorage gespeichert, damit nach reload der Page nicht der counter = 0 ist */
+    if (localStorage.clickcount >= 5) {
+        localStorage.clickcount = 0;
+    }
+
+    if (localStorage.clickcount) {
+        localStorage.clickcount = Number(localStorage.clickcount) + 1;
+    } else {
+        localStorage.clickcount = 1;
+    }
+
+    document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
+
+    var cookieString = "durationCookie" + localStorage.clickcount;
+    var json_duration = JSON.stringify(saveDuration);
+    createCookie(cookieString, json_duration, 2); /* 2 = Expire date */
+    location.reload();
+}
+
+/* Cookies holen, in Array umwandeln, dann den Durchschnitt der Werte berechnen */
+function validate() {
+
+    var json_str1 = getCookie("durationCookie1");
+    var jsonDuration1 = JSON.parse(json_str1);
+
+    var json_str2 = getCookie("durationCookie2");
+    var jsonDuration2 = JSON.parse(json_str2);
+
+    var json_str3 = getCookie("durationCookie3");
+    var jsonDuration3 = JSON.parse(json_str3);
+
+    var json_str4 = getCookie("durationCookie4");
+    var jsonDuration4 = JSON.parse(json_str4);
+
+    var json_str5 = getCookie("durationCookie5");
+    var jsonDuration5 = JSON.parse(json_str5);
+
+
+    for (var i = 0; i < jsonDuration1.length; i++) {
+
+        validateDuration[i] = Math.round((jsonDuration1[i] + jsonDuration2[i] + jsonDuration3[i] + jsonDuration4[i] + jsonDuration5[i]) / 5);
+    }
+
+    alert(validateDuration); /*validateDuration würde dann in DB abgespeichert werden */
+}
+
+
+/* Diese set, get Funktionen mussten kopiert werden sonst funktioniert cookies nicht */
+var createCookie = function(name, value, days) {
+    var expires;
+    if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        expires = "; expires=" + date.toGMTString();
+    }
+    else {
+        expires = "";
+    }
+    document.cookie = name + "=" + value + expires + "; path=/";
+}
+
+function getCookie(c_name) {
+    if (document.cookie.length > 0) {
+        c_start = document.cookie.indexOf(c_name + "=");
+        if (c_start != -1) {
+            c_start = c_start + c_name.length + 1;
+            c_end = document.cookie.indexOf(";", c_start);
+            if (c_end == -1) {
+                c_end = document.cookie.length;
+            }
+            return unescape(document.cookie.substring(c_start, c_end));
+        }
+    }
+    return "";
 }
