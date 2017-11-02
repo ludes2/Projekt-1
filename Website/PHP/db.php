@@ -9,7 +9,7 @@
 const HOST = "localhost";
 const USER = "root";
 const PW = "1223";
-const DB_NAME = "projekt-1";
+const DB_NAME = "projekt1";
 
 /*create connection to DB*/
 $db = new mysqli(HOST, USER, PW, DB_NAME);
