@@ -35,7 +35,7 @@ if(isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['sign-
 
     /*check if email is already registrated*/
     if (!$error) {
-        $result = $db->query("SELECT * FROM staffplanner.users WHERE email = '$email';");
+        $result = $db->query("SELECT * FROM projekt-1.users WHERE email = '$email';");
         $row = $result->fetch_assoc();
         $row_count = $result->num_rows;
         if ($row_count != 0) {
@@ -49,12 +49,12 @@ if(isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['sign-
         /*encrypt the password with the 'PASSWORD_DEFAULT? algorithm*/
         $encryptedPw = password_hash($password, PASSWORD_DEFAULT);
         /*prepare the sql query*/
-        if (!($stmt = $db->prepare("INSERT INTO staffplanner.users (email, password, nachname, vorname)
+        if (!($stmt = $db->prepare("INSERT INTO projekt-1.users (email, password, firstname, lastname)
         VALUES(?, ?, ?, ?)"))) {
             echo "prepare failed: (" . $db->errno . " )" . $db->error;
         }
         /*bind the parameters with the values*/
-        if (!$stmt->bind_param("ssss", $email, $encryptedPw, $lastname, $firstname)) {
+        if (!$stmt->bind_param("ssss", $email, $encryptedPw, $firstname, $lastname)) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         /*execute the prepared statement*/

@@ -1,0 +1,90 @@
+body, html {
+    margin: 0;
+    height: 100%;
+    background: url('../css/img/balloonsBG.jpg') no-repeat center center fixed;
+    background-size: cover;
+    background-size: cover;
+    background-size: cover;
+    background-size: cover;
+}
+
+
+
+.header{
+    color: black;
+    text-align: center;
+}
+h1{
+    font-size: 3em;
+}
+
+.flex-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    align-content: center;
+
+
+}
+
+.login {
+    background-image: linear-gradient(Aquamarine, DeepSkyBlue);
+    margin: 100px;
+    padding: 100px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px MidnightBlue;
+}
+
+#username, #mail, #confirmPassword, #loginPassword, #sign-upPassword{
+    font-size: 1.2em;
+}
+
+.sign-up {
+    background-image: linear-gradient(Aquamarine, DeepSkyBlue);
+    margin:100px;
+    padding:100px;
+    border-radius: 20px;
+    box-shadow: 5px 5px 20px MidnightBlue;
+}
+
+
+.footer{
+    color: black;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    column-rule: 1px solid black;
+}
+
+ul{
+    list-style-type: none;
+    column-count: 3;
+    text-align: center;
+}
+
+button {
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 50%;
+}
+
+button:hover{
+    opacity: 0.8;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
