@@ -10,6 +10,7 @@ include_once "db.php";
 
 if(isset($_POST['email'], $_POST['password'])){
 
+    $db = db::getInstance();
 
     $email = $_POST['email'];
     $password = $_POST['password'];

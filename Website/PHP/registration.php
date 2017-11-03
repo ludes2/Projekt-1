@@ -12,6 +12,8 @@ include_once "Validators/password_validator.php";
 
 if(isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['sign-upPassword'], $_POST['confirmPassword'])){
 
+    $db = db::getInstance();
+
     $error = false;
     /*declare variables for User input*/
     $email = $_POST['email'];
