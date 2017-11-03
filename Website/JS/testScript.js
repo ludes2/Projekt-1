@@ -5,15 +5,21 @@ var time1; /*für differenz ausrechnen (in millisekunden)*/
 var time2; /*für differenz ausrechnen (in millisekunden)*/
 var duration; /*time2 - time1*/
 var latency;
+var interval;
 
 var saveKeyCode = [];
-var saveDuration = [];
-var saveLatency = [];
+var saveDuration = []; /* Array zum Analysieren der Eingabe */
+var saveLatency = []; /* Array zum Analysieren der Eingabe */
+var saveInterval = []; /* Array zum Analysieren der Eingabe */
 
-var validateDuration = [];
+var validateDuration = []; /* Durchschnitt von den Cookies */
 
-var time1Latency = []; /*Array für Latency */
-var time2Latency = []; /*Array für Latency */
+var time1Latency = []; /*Array für Latency auszurechnen*/
+var time2Latency = []; /*Array für Latency auszurechnen*/
+var time1Interval = []; /*Array für Interval auszurechnen*/
+var time2Interval = []; /*Array für Interval auszurechnen*/
+
+var percentDuration = []; /* % Übereinstimmung von Duration */
 
 
 /*Zeit wenn die Taste gedrückt wurde*/
@@ -21,6 +27,7 @@ function keydownFunction() {
 
     time1 = new Date();
     time1Latency.push(time1);
+    time1Interval.push(time1);
 }
 
 
@@ -29,34 +36,19 @@ function keyupFunction() {
 
     time2 = new Date();
     time2Latency.push(time2);
+    time2Interval.push(time2);
 
-    duration = time2.getTime() - time1.getTime(); /*getTime kriegt zeit in millisekunden*/
+    duration = time2.getTime() - time1.getTime(); /*getTime kriegt Zeit in millisekunden*/
     latency = time2Latency[time2Latency.length-1] - time1Latency[time1Latency.length-2];
+    interval = time1Interval[time1Latency.length-1] - time2Interval[time2Interval.length-2];
 
-    document.getElementById('time').innerHTML = "Duration: " + duration + " KeyCode: " + event.keyCode + " Latency: " + latency; /*Show difference*/
-
-    document.getElementById('time').innerHTML = "Differenz: " + difference + "KeyCode: " + event.keyCode  /*Show difference*/
+    document.getElementById('time').innerHTML = "Duration: " + duration + " KeyCode: "
+        + event.keyCode + " Latency: " + latency + " Interval: " + interval;
 
     saveKeyCode.push(event.keyCode);
     saveDuration.push(duration);
     saveLatency.push(latency);
-
-
-    /* Array wird bei jedem KeyUp um 1 erweitert
-    saveKey[0][countKey] = compareDifference;
-    saveKey[1][countKey] = event.keyCode;
-    countKey = countKey + 1; /*Nächste Zeile */
-
-}
-
-
-
-/*Als txt Datei speichern*/
-
-/*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
-//var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
-
-
+    saveInterval.push(interval);
 }
 
 
@@ -65,17 +57,33 @@ function compareDuration() {
     /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
     var testDuration = ["86", "78", "98", "86", "87"]; /* Array mit "hallo" */
 
+    var limit = 30;
+
+
     for (var i = 0; i < saveDuration.length; i++) {
-        if (Math.abs(testDuration[i] - saveDuration[i]) > 30) {
+        if (Math.abs(testDuration[i] - saveDuration[i]) > limit) {
             alert("Fehler - Person nicht erkannt");
             break;
         }
+
+        /* Werte in % umwandeln */
+        if (testDuration[i] > saveDuration[i]) {
+            percentDuration[i] = ((saveDuration[i] * 100) / testDuration[i]);
+        }
+
+        if (testDuration[i] < saveDuration[i]) {
+            percentDuration[i] = ((testDuration[i] * 100) / saveDuration[i]);
+        }
     }
+
+    /* Summe von Array / Länge des Arrays, Gesamt % von Duration */
+    alert(Math.round(percentDuration.reduce(getSum) / percentDuration.length) + "%");
 }
 
 
 /*Berechnet Latency */
 function compareLatency() {
+
     var testLatency = ["0", "266","220","242","284"]; /* Array mit "hallo" */
 
     for (var i = 1; i < saveLatency.length; i++) {
@@ -87,19 +95,17 @@ function compareLatency() {
 }
 
 
-/*Array als txt Datei speichern*/
-function exportToFile() {
+/* Berechnet Interval */
+function compareInterval() {
 
-    var fileText = saveDuration; /*Array*/
+    var testInterval = ["0", "98","50","68","112"]; /* Array mit "hallo" */
 
-    var textToSave = fileText;
-
-    var hiddenElement = document.createElement('a');
-
-    hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
-    hiddenElement.target = '_blank';
-    hiddenElement.download = 'myFile.txt';
-    hiddenElement.click();
+    for (var i = 1; i < saveLatency.length; i++) {
+        if (Math.abs(testInterval[i] - saveInterval[i]) > 50) {
+            alert("Fehler - Person nicht erkannt");
+            break;
+        }
+    }
 }
 
 
@@ -118,14 +124,14 @@ function createCookies() {
 
     document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
 
-    var cookieString = "durationCookie" + localStorage.clickcount;
+    var cookieDurationString = "durationCookie" + localStorage.clickcount;
     var json_duration = JSON.stringify(saveDuration);
-    createCookie(cookieString, json_duration, 2); /* 2 = Expire date */
-    location.reload();
+    createCookie(cookieDurationString, json_duration, 2); /* 2 = Expire date */
+    location.reload(); /* Website wird automatisch neu geladen */
 }
 
 /* Cookies holen, in Array umwandeln, dann den Durchschnitt der Werte berechnen */
-function validate() {
+function validateDurationCookies() {
 
     var json_str1 = getCookie("durationCookie1");
     var jsonDuration1 = JSON.parse(json_str1);
@@ -145,14 +151,39 @@ function validate() {
 
     for (var i = 0; i < jsonDuration1.length; i++) {
 
-        validateDuration[i] = Math.round((jsonDuration1[i] + jsonDuration2[i] + jsonDuration3[i] + jsonDuration4[i] + jsonDuration5[i]) / 5);
+        validateDuration[i] = Math.round((jsonDuration1[i] + jsonDuration2[i] + jsonDuration3[i] + jsonDuration4[i]
+            + jsonDuration5[i]) / 5);
     }
 
     alert(validateDuration); /*validateDuration würde dann in DB abgespeichert werden */
 }
 
 
-/* Diese set, get Funktionen mussten kopiert werden sonst funktioniert cookies nicht */
+
+/* ------------------------------------------------------------------------------ */
+
+/* Summe von Array */
+function getSum(total, num) {
+    return total + num;
+}
+
+/*Array als txt Datei speichern*/
+function exportToFile() {
+
+    var fileText = saveDuration; /*Array*/
+
+    var textToSave = fileText;
+
+    var hiddenElement = document.createElement('a');
+
+    hiddenElement.href = 'data:attachment/text,' + encodeURI(textToSave);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = 'myFile.txt';
+    hiddenElement.click();
+}
+
+
+/* Diese set, get Funktionen mussten kopiert werden sonst funktionieren cookies nicht */
 var createCookie = function(name, value, days) {
     var expires;
     if (days) {
