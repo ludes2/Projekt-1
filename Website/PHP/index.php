@@ -11,7 +11,7 @@
 
 <body>
 
-<script src="../JS/testScript.js"></script>
+<script src="../JS/validateScript.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
 <div class='header'>
@@ -42,11 +42,8 @@
 		<label>Beispieltext1</label> <br>
 		<input type="text" id="bsptxt1" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
 		<button type="button" onclick="exportToFile()">Export to file</button>
-		<button type="button" onclick="compareDuration()">Compare Duration</button>
-        <button type="button" onclick="compareLatency()">Compare Latency</button>
-        <button type="button" onclick="compareInterval()">Compare Interval</button>
-        <button type="button" onclick="createCookies()">Create Cookie</button>
-        <button type="button" onclick="validateDurationCookies()">Validate</button>
+		<button type="button" onclick="saveDurationInDB()">saveDurationInDB</button>
+
 		<p id="time"></p>
 		<p id="result"></p>
 	</div>
