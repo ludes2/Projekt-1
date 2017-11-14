@@ -170,3 +170,9 @@ ALTER TABLE `latencies`
   ADD CONSTRAINT `latencies_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `latencies` (`lat_id`) ON DELETE CASCADE;
 COMMIT;
 
+--
+-- User Martin hunzufügen (13.11.2017)
+--
+INSERT INTO `users` (`user_id`, `email`, `password`, `firstname`, `lastname`) VALUES
+  (1, 'martin-k@hotmail.ch', 'projekt1', 'Martin', 'Kieliger');
+

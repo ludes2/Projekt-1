@@ -7,7 +7,7 @@
  */
 
 class db extends mysqli{
-    const HOST="localhost", USER="root", PW="w1223", DB_NAME="projekt1";
+    const HOST="localhost", USER="root", PW="", DB_NAME="projekt1";
 
     static private $instance;
 

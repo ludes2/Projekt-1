@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<script src="../JS/testScript.js"></script>
+<script src="../JS/validateScript.js"></script>
 <script src="../JS/latencyTest.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 
@@ -24,7 +24,7 @@
 			<label id="email">E-Mail</label> <br>
 			<input type='text' placeholder='Enter your email' name='email' required> <br>
 			<label id="loginPassword">Password</label> <br>
-			<input type='password'placeholder='Enter your password' name='password' required> <br>
+			<input type='password' placeholder='Enter your password' name='password' required> <br>
 			<button type="submit">Login</button>
 
 		</div>
@@ -55,16 +55,19 @@
 	<p id="areaContent"></p>
 </form>
 
+
+<form action="../php/validateInput.php" method="post">
 <div>
 	<div class='test-capture'><h2>Test-Capture</h2><br>
 		<label>Beispieltext1</label> <br>
-		<input type="text" id="bsptxt1" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
+		<input type="text" name='jsonDuration' onkeydown="keydownFunction()" onkeyup="keyupFunction()">
+		<button type="submit">Save Duration in DB</button>
 		<button type="button" onclick="exportToFile()">Export to file</button>
-		<button type="button" onclick="compareLatency()">Compare difference</button>
 		<p id="time"></p>
 		<p id="difference"></p>
 	</div>
 </div>
+</form>
 
 
 
