@@ -51,7 +51,10 @@ class user {
     }
 
 
-    public function to_String() {
+    /**
+     * @return string
+     */
+    public function toString() {
         return sprintf("%d, %s, %s, %s",
             $this->user_id, $this->firstname, $this->lastname, $this->email);
     }
@@ -93,8 +96,10 @@ class user {
         $res = db::doQuery(
             "DELETE FROM projekt1.users WHERE user_id = $id"
         );
+        // evaluates the expression. if the res is null return false, if res is not null return true
         return $res != null;
     }
+
 
     /**
      * @param $values
