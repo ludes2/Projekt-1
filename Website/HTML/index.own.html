@@ -60,16 +60,15 @@
 <div>
 	<div class='test-capture'><h2>Test-Capture</h2><br>
 		<label>Beispieltext1</label> <br>
-		<input type="text" name='jsonDuration' onkeydown="keydownFunction()" onkeyup="keyupFunction()">
-		<button type="submit">Save Duration in DB</button>
-		<button type="button" onclick="exportToFile()">Export to file</button>
+		<input type="text" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
+		<button type="submit" >Save Duration in DB</button>
+		<button type="button" onclick="saveDurationInDB()">Create JSON</button>
+		<button type="button" onclick="exportToFile()">Export File</button>
 		<p id="time"></p>
 		<p id="difference"></p>
 	</div>
 </div>
 </form>
-
-
 
 </body>
 </html>

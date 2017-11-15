@@ -20,8 +20,7 @@ var time2Interval = []; /*Array für Interval auszurechnen*/
 
 var percentDuration = []; /* % Übereinstimmung von Duration */
 
-
-
+var jsonDuration;
 
 /*Zeit wenn die Taste gedrückt wurde*/
 function keydownFunction() {
@@ -54,7 +53,28 @@ function keyupFunction() {
 
 function saveDurationInDB() {
 
-    var jsonDuration = JSON.stringify(saveDuration);
+    jsonDuration = JSON.stringify(saveDuration);
+
+
+    $(document).ready(function() {
+
+        $(".clickable").click(function() {
+            var userID = $(this).attr('id');
+            //alert($(this).attr('id'));
+            $.ajax({
+                type: "POST",
+                url: 'validateInput.php',
+                data: { data : jsonDuration },
+                success: function(jsonDuration)
+                {
+                    alert("success!");
+                }
+            });
+        });
+    });
+
+    alert(jsonDuration);
+
 }
 
 
@@ -124,7 +144,7 @@ function getSum(total, num) {
 /*Array als txt Datei speichern*/
 function exportToFile() {
 
-    var fileText = saveDuration; /*Array*/
+    var fileText = jsonDuration; /*Array*/
 
     var textToSave = fileText;
 

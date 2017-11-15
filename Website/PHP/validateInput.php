@@ -12,8 +12,11 @@ include_once "db.php";
     $db = db::getInstance();
 
 
-    /*$array=json_decode($_POST['jsonDuration']);*/
+    $data = $_POST['jsonDuration'];
+
+    echo $data;
 
 
-    $stmt = $db->prepare("INSERT INTO projekt1.durations (created_at, durations, dur_id, user_id) VALUES('13.11.2017', 'test', '1', '1')");
+    /*$stmt = $db->prepare("INSERT INTO projekt1.durations (created_at, durations, dur_id, user_id) VALUES('13.11.2017', '$data', '34', '1')");
     $stmt->execute();
+    */
