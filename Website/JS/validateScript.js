@@ -20,7 +20,6 @@ var time2Interval = []; /*Array für Interval auszurechnen*/
 
 var percentDuration = []; /* % Übereinstimmung von Duration */
 
-var jsonDuration;
 
 /*Zeit wenn die Taste gedrückt wurde*/
 function keydownFunction() {
@@ -51,30 +50,50 @@ function keyupFunction() {
     saveInterval.push(interval);
 }
 
-function saveDurationInDB() {
+function sendInputToPHP() {
 
-    jsonDuration = JSON.stringify(saveDuration);
+    /* Array in String umwandeln um in DB abzuspeichern */
+    var jsonDuration = JSON.stringify(saveDuration);
+    var jsonLatency = JSON.stringify(saveLatency);
+    var jsonInterval = JSON.stringify(saveInterval);
 
-
-    $(document).ready(function() {
-
-        $(".clickable").click(function() {
-            var userID = $(this).attr('id');
-            //alert($(this).attr('id'));
-            $.ajax({
-                type: "POST",
-                url: 'validateInput.php',
-                data: { data : jsonDuration },
-                success: function(jsonDuration)
-                {
-                    alert("success!");
-                }
-            });
-        });
+    /* JSON String wird mit Hilfe von AJAX zu validaInput.php geparset */
+    $.ajax({
+        url: 'validateInput.php',
+        data: {jsonDuration: jsonDuration},
+        type: 'post',
+        dataType: 'json'
     });
 
-    alert(jsonDuration);
+    $.ajax({
+        url: 'validateInput.php',
+        data: {jsonLatency: jsonLatency},
+        type: 'post',
+        dataType: 'json'
+    });
 
+    $.ajax({
+        url: 'validateInput.php',
+        data: {jsonInterval: jsonInterval},
+        type: 'post',
+        dataType: 'json'
+    });
+
+    alert(jsonInterval);
+}
+
+
+function getInputFromDB() {
+
+    var oReq = new XMLHttpRequest(); //New request object
+    oReq.onload = function() {
+        //This is where you handle what to do with the response.
+        //The actual data is found on this.responseText
+        alert(this.responseText);
+    };
+    oReq.open("post", "validateInput.php", true);
+
+    oReq.send();
 }
 
 
