@@ -78,8 +78,6 @@ function sendInputToPHP() {
         type: 'post',
         dataType: 'json'
     });
-
-    alert(jsonInterval);
 }
 
 
