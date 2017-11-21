@@ -9,7 +9,7 @@
 include_once "db.php";
 include_once "duration.php";
 
-class averages {
+class averages implements model_interface {
 
     private $av_id, $user_id, $dur_id, $av_duration, $lat_id, $av_latency, $interval_id, $av_interval;
     private $duration;
@@ -100,14 +100,24 @@ class averages {
         return $res != null;
     }
 
-    public function calculateAverageDuration() {
-        $lastFiveDurations = array();
 
+    public function calculateAverage()
+    {
+        // TODO: Implement calculateAverage() method.
     }
 
+    public function calculateAverageDuration()
+    {
+        // TODO: Implement calculateAverageDuration() method.
+    }
 
-    
+    public function calculateAverageLatency()
+    {
+        // TODO: Implement calculateAverageLatency() method.
+    }
 
-
-
+    public function calculateAverageIntercal()
+    {
+        // TODO: Implement calculateAverageIntercal() method.
+    }
 }

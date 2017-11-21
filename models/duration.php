@@ -6,11 +6,35 @@
  * Time: 14:01
  */
 
-class duration {
+class duration implements model_interface {
+
     private $dur_id, $user_id, $durations, $created_at;
 
     function __construct() {
 
+    }
+
+    /**
+     *
+     */
+    public function calculateAverageDuration()
+    {
+        $lastFiveDurations = $this->getLastFiveDurationsOfUser();
+    }
+
+    public function calculateAverage()
+    {
+        // TODO: Implement calculateAverage() method.
+    }
+
+    public function calculateAverageLatency()
+    {
+        // TODO: Implement calculateAverageLatency() method.
+    }
+
+    public function calculateAverageInterval()
+    {
+        // TODO: Implement calculateAverageIntercal() method.
     }
 
     /**
