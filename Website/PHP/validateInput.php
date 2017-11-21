@@ -11,9 +11,58 @@ include_once "db.php";
 
     $db = db::getInstance();
 
+    $error = false;
 
-    /*$array=json_decode($_POST['jsonDuration']);*/
+    /* ---------------------------------------------------------------------------------------------------------------------------------------------------- */
+    /* save duration from JavaScript in DB (only 5 entries)*/
+
+    $result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
+    $row = $result->fetch_assoc();
+    $idCounter = $row["dur_id"];
+
+    if ($idCounter <= 4) {
+
+        if (isset($_POST['jsonDuration'])) {
+            $duration = $_POST['jsonDuration'];
+
+            $stmt = $db->prepare("INSERT INTO projekt1.durations (created_at, durations, dur_id, user_id) VALUES('13.11.2017', '$duration', $idCounter + 1, '1')");
+            $stmt->execute();
+        }
+    }
+
+    if ($idCounter <= 5)    {
+
+        if (isset($_POST['jsonLatency'])) {
+            $latency = $_POST['jsonLatency'];
+
+            $stmt = $db->prepare("INSERT INTO projekt1.latencies (created_at, latencies, lat_id, user_id) VALUES('13.11.2017', '$latency', $idCounter, '1')");
+            $stmt->execute();
+        }
+
+        if (isset($_POST['jsonInterval'])) {
+            $interval = $_POST['jsonInterval'];
+
+            $stmt = $db->prepare("INSERT INTO projekt1.intervals (created_at, intervals, interval_id, user_id) VALUES('13.11.2017', '$interval', $idCounter, '1')");
+            $stmt->execute();
+        }
+    }
+
+    echo "5 Einträge erreicht";
+
+    /* -------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
+    /* get values from database */
+    if (!$error) {
+        $testDuration = $db->query("SELECT durations FROM projekt1.durations WHERE dur_id = '2';");
+        $row = $testDuration->fetch_assoc();
+        $resultDuration = json_encode($row);
+        echo $row["durations"];
+    }
 
 
-    $stmt = $db->prepare("INSERT INTO projekt1.durations (created_at, durations, dur_id, user_id) VALUES('13.11.2017', 'test', '1', '1')");
-    $stmt->execute();
+
+
+
+
+
+
