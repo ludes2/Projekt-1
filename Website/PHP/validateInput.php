@@ -25,7 +25,7 @@ include_once "db.php";
         if (isset($_POST['jsonDuration'])) {
             $duration = $_POST['jsonDuration'];
 
-            $stmt = $db->prepare("INSERT INTO projekt1.durations (created_at, durations, dur_id, user_id) VALUES('13.11.2017', '$duration', $idCounter + 1, '1')");
+            $stmt = $db->prepare("INSERT INTO projekt1.durations (durations, dur_id, user_id) VALUES('$duration', $idCounter + 1, '1')");
             $stmt->execute();
         }
     }
@@ -35,14 +35,14 @@ include_once "db.php";
         if (isset($_POST['jsonLatency'])) {
             $latency = $_POST['jsonLatency'];
 
-            $stmt = $db->prepare("INSERT INTO projekt1.latencies (created_at, latencies, lat_id, user_id) VALUES('13.11.2017', '$latency', $idCounter, '1')");
+            $stmt = $db->prepare("INSERT INTO projekt1.latencies (latencies, lat_id, user_id) VALUES('$latency', $idCounter, '1')");
             $stmt->execute();
         }
 
         if (isset($_POST['jsonInterval'])) {
             $interval = $_POST['jsonInterval'];
 
-            $stmt = $db->prepare("INSERT INTO projekt1.intervals (created_at, intervals, interval_id, user_id) VALUES('13.11.2017', '$interval', $idCounter, '1')");
+            $stmt = $db->prepare("INSERT INTO projekt1.intervals (intervals, interval_id, user_id) VALUES('$interval', $idCounter, '1')");
             $stmt->execute();
         }
     }

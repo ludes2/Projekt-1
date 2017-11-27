@@ -8,17 +8,21 @@
 
 class duration_controller {
 
-    private $duration;
+    private $durationModel;
 
     /**
      * duration_controller constructor.
-     * @param duration $duration
+     * @param duration $durationModel
      */
-    function __construct(duration $duration) {
-        $this->duration = $duration;
+    function __construct(duration $durationModel) {
+        $this->durationModel = $durationModel;
     }
 
     //public function compare....
+
+
+
+
 
 
 

@@ -5,22 +5,34 @@
  * Date: 10.11.2017
  * Time: 14:01
  */
-
+include_once "model_interface.php";
+include_once "../Website/PHP/db.php";
 class duration implements model_interface {
 
-    private $dur_id, $user_id, $durations, $created_at;
+    private $dur_id, $user_id, $durations;
 
-    function __construct() {
+    public function __construct() {
 
     }
 
     /**
      *
      */
-    public function calculateAverageDuration()
-    {
-        $lastFiveDurations = $this->getLastFiveDurationsOfUser();
-    }
+//    public function calculateAverageDuration($userId)
+//    {
+//        $lastFiveDurations = $this->getLastFiveDurationsOfUser($userId);
+//        averages = []
+//        foreach($array : $lastFIve...)
+//            $real_numbers = []
+//            $numbers = $array.split(",")
+//                foreach ($number : $numbers)
+//                    $real_numbers << $number.trim.toInt
+//
+//           $averages << real_numbers.avg
+//        $averages.avg
+//        echo $lastFiveDurations;
+//
+//    }
 
     public function calculateAverage()
     {
@@ -58,27 +70,21 @@ class duration implements model_interface {
         return $this->durations;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCreatedAt() {
-        return $this->created_at;
-    }
 
 
     /**
      * @param $userId
      * @return array|null
      */
-    public function getLastFiveDurationsOfUser($userId) {
+    public static function getLastFiveDurationsOfUser($userId) {
         $lastFiveDurations = array();
         $userId = (int) $userId;
         $res = db::doQuery(
-            "SELECT * FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT 5"
+            "SELECT durations FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT 5"
         );
         if(!$res) return null;
-        while($duration = $res->fetch_object(get_class())){
-            $lastFiveDurations[] = $duration;
+        while($duration = $res->fetch_array()){
+            $lastFiveDurations[] = json_decode($duration['durations'], true);
         }
         return $lastFiveDurations;
     }
@@ -91,10 +97,10 @@ class duration implements model_interface {
     public static function getDurationById($durId) {
         $durId = (int) $durId;
         $res = db::doQuery(
-            "SELECT * FROM projekt1.durations WHERE dur_id = $durId"
+            "SELECT durations FROM projekt1.durations WHERE dur_id = $durId"
         );
         if(!$res) return null;
-        return $res->fetch_object(get_class());
+        return $res->fetch_row();
     }
 
     /**
@@ -127,12 +133,8 @@ class duration implements model_interface {
         return $stmt->execute();
     }
 
-
-
-
-
-
-
-
-
+    public function calculateAverageDuration($userId)
+    {
+        // TODO: Implement calculateAverageDuration() method.
+    }
 }

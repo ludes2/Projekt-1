@@ -9,8 +9,8 @@
 interface model_interface
 {
     public function calculateAverage();
-    public function calculateAverageDuration();
+    public function calculateAverageDuration($userId);
     public function calculateAverageLatency();
-    public function calculateAverageIntercal();
+    public function calculateAverageInterval();
 
 }
