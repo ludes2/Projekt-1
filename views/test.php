@@ -22,7 +22,10 @@ echo "<br>";
 $lastFive = duration::getLastFiveDurationsOfUser(5);
 
 foreach ($lastFive as $value){
-    var_dump($value);
+    echo "durations: ";
+    for($x=0; $x<count($value); $x++){
+        echo $value[$x] . ", ";
+    }
     echo "<br>";
 }
 echo "<br>";
