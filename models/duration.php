@@ -5,85 +5,58 @@
  * Date: 10.11.2017
  * Time: 14:01
  */
-include_once "model_interface.php";
+
 include_once "../Website/PHP/db.php";
-class duration implements model_interface {
+class duration
+{
 
     private $dur_id, $user_id, $durations;
 
-    public function __construct() {
-
-    }
-
-    /**
-     *
-     */
-//    public function calculateAverageDuration($userId)
-//    {
-//        $lastFiveDurations = $this->getLastFiveDurationsOfUser($userId);
-//        averages = []
-//        foreach($array : $lastFIve...)
-//            $real_numbers = []
-//            $numbers = $array.split(",")
-//                foreach ($number : $numbers)
-//                    $real_numbers << $number.trim.toInt
-//
-//           $averages << real_numbers.avg
-//        $averages.avg
-//        echo $lastFiveDurations;
-//
-//    }
-
-    public function calculateAverage()
+    public function __construct()
     {
-        // TODO: Implement calculateAverage() method.
+
     }
 
-    public function calculateAverageLatency()
-    {
-        // TODO: Implement calculateAverageLatency() method.
-    }
 
-    public function calculateAverageInterval()
-    {
-        // TODO: Implement calculateAverageIntercal() method.
-    }
 
     /**
      * @return mixed
      */
-    public function getDurId() {
+    public function getDurId()
+    {
         return $this->dur_id;
     }
 
     /**
      * @return mixed
      */
-    public function getUserId() {
+    public function getUserId()
+    {
         return $this->user_id;
     }
 
     /**
      * @return mixed
      */
-    public function getDurations() {
+    public function getDurations()
+    {
         return $this->durations;
     }
-
 
 
     /**
      * @param $userId
      * @return array|null
      */
-    public static function getLastFiveDurationsOfUser($userId) {
+    public function getLastFiveDurationsOfUser($userId)
+    {
         $lastFiveDurations = array();
-        $userId = (int) $userId;
+        $userId = (int)$userId;
         $res = db::doQuery(
-            "SELECT durations FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT 5"
+            "SELECT durations FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT $userId"
         );
-        if(!$res) return null;
-        while($duration = $res->fetch_array()){
+        if (!$res) return null;
+        while ($duration = $res->fetch_array()) {
             $lastFiveDurations[] = json_decode($duration['durations'], true);
         }
         return $lastFiveDurations;
@@ -94,12 +67,13 @@ class duration implements model_interface {
      * @param $durId
      * @return null
      */
-    public static function getDurationById($durId) {
-        $durId = (int) $durId;
+    public function getDurationById($durId)
+    {
+        $durId = (int)$durId;
         $res = db::doQuery(
             "SELECT durations FROM projekt1.durations WHERE dur_id = $durId"
         );
-        if(!$res) return null;
+        if (!$res) return null;
         return $res->fetch_row();
     }
 
@@ -107,8 +81,9 @@ class duration implements model_interface {
      * @param $durId
      * @return bool
      */
-    public static function delete($durId) {
-        $durId = (int) $durId;
+    public static function delete($durId)
+    {
+        $durId = (int)$durId;
         $res = db::doQuery(
             "DELETE FROM projekt1.durations WHERE dur_id = $durId"
         );
@@ -119,22 +94,38 @@ class duration implements model_interface {
      * @param $values
      * @return bool
      */
-    public static function insert($values) {
+    public static function insert($values)
+    {
         $stmt = db::getInstance()->prepare(
             "INSERT INTO projekt1.durations" . "(user_id, durations) " .
             "VALUE (?, ?, ?)"
         );
-        if(!$stmt) return false;
+        if (!$stmt) return false;
         $success = $stmt->bind_param('is',
             $values['user_id'],
             $values['durations']
         );
-        if(!$success) return false;
+        if (!$success) return false;
         return $stmt->execute();
     }
 
-    public function calculateAverageDuration($userId)
-    {
-        // TODO: Implement calculateAverageDuration() method.
+
+    /**
+     * @param $userID
+     * @return array
+     */
+    public function calculateAverage($userID){
+        $lastFiveDurations = $this->getLastFiveDurationsOfUser($userID);
+        $averages = array();
+        /**doesn't matter which row to take, they are all the same length...**/
+        $length = sizeof($lastFiveDurations[0]);
+        for ($x=0; $x<$length; $x++){
+            /**get the values of each column, sum them up and divide by the length of the lastFive durations
+            in this case its 5, easy to change to other value**/
+            $column = array_column($lastFiveDurations, $x);
+            $averages[] = array_sum($column) / count($lastFiveDurations);
+        }
+        //var_dump($averages);
+        return $averages;
     }
 }

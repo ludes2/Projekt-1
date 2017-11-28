@@ -6,17 +6,16 @@
  * Time: 16:15
  */
 
-include_once "db.php";
+include_once "../Website/PHP/db.php";
 include_once "duration.php";
 
-class averages implements model_interface {
+class averages {
 
     private $av_id, $user_id, $dur_id, $av_duration, $lat_id, $av_latency, $interval_id, $av_interval;
     private $duration;
 
-    function __construct() {
-        $this->duration = new duration();
-
+    function __construct(duration $duration) {
+        $this->duration = $duration;
     }
 
     /**
@@ -100,24 +99,27 @@ class averages implements model_interface {
         return $res != null;
     }
 
-
-    public function calculateAverage()
-    {
-        // TODO: Implement calculateAverage() method.
+    /**
+     * @param $values
+     * @return bool
+     */
+    public function insert($values){
+        $stmt = db::getInstance()->prepare(
+            "INSERT INTO projekt1.averages" . "(av_duration)" .
+            "VALUE (?)"
+        );
+        if(!$stmt) return false;
+        $success = $stmt->bind_param('s',
+            $values['av_duration']
+        );
+        if(!$success) return false;
+        return $stmt->execute();
     }
 
-    public function calculateAverageDuration()
-    {
-        // TODO: Implement calculateAverageDuration() method.
-    }
 
-    public function calculateAverageLatency()
-    {
-        // TODO: Implement calculateAverageLatency() method.
-    }
 
-    public function calculateAverageIntercal()
-    {
-        // TODO: Implement calculateAverageIntercal() method.
-    }
+
+
+
+
 }
