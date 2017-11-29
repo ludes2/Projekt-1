@@ -16,6 +16,9 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
 
     if(checklogin($email, $password)) {
         $_SESSION['user'] = $email;
+        header('location: http://localhost:63342/Projekt-1/views/home.php');
+    } else {
+        // else.. ??
     }
 }
 

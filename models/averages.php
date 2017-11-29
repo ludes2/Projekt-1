@@ -12,10 +12,10 @@ include_once "duration.php";
 class averages {
 
     private $av_id, $user_id, $dur_id, $av_duration, $lat_id, $av_latency, $interval_id, $av_interval;
-    private $duration;
+    //private $duration;
 
-    function __construct(duration $duration) {
-        $this->duration = $duration;
+    function __construct() {
+
     }
 
     /**
@@ -116,9 +116,19 @@ class averages {
         return $stmt->execute();
     }
 
+    /**
+     * @param $userID
+     * @return null
+     */
+    public function getDurationAverage($userID){
+        $userID = (int) $userID;
+        $result = db::doQuery(
+            "SELECT av_duration FROM projekt1.averages WHERE user_id = $userID"
+        );
+        if(!$result) return null;
+        return $result->fetch_row();
 
-
-
+    }
 
 
 

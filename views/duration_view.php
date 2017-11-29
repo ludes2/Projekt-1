@@ -15,10 +15,21 @@ class duration_view
         $this->durationModel = $durationModel;
     }
 
-    public function render() {
-        $lastFive = $this->durationModel->getLastFiveDurationsOfUser(5);
-        echo $lastFive;
-        echo "hallo";
+
+    /**
+     * created only for testing reasons..
+     * @param $userID
+     */
+    public function showLastFiveDurations($userID) {
+        $lastFiveDurations = $this->durationModel->getLastFiveDurationsOfUser($userID);
+        foreach ($lastFiveDurations as $key => $value){
+            echo "duration index: " . $key . "= ";
+            for($x=0 ; $x<count($value); $x++){
+                echo $value[$x] . ", ";
+            }
+            echo "<br>";
+        }
+
     }
 
 }
