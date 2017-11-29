@@ -6,7 +6,7 @@
  * Time: 15:28
  */
 
-include_once  "validator.php";
+include_once "validator.php";
 
 class email_validator extends validator {
 

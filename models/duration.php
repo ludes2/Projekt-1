@@ -6,7 +6,7 @@
  * Time: 14:01
  */
 
-include_once "../Website/PHP/db.php";
+include_once "../PHP/db.php";
 class duration
 {
 

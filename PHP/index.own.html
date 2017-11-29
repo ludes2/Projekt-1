@@ -4,7 +4,7 @@
 	<title>Staffplaner Login/Sign-up</title>
 	<meta charset="UTF-8">
 	<link rel='stylesheet' href='../CSS/landingPage.css'/>
-	<link rel='stylesheet' href='../css/forms.css'/>
+	<link rel='stylesheet' href='../CSS/forms.css'/>
 	
 </head>
 
@@ -19,7 +19,7 @@
 </div>
 
 <div class='flex-container'>
-	<form action="../php/authentication.php" method="post">
+	<form action="../PHP/authentication.php" method="post">
 		<div class='login'><h2>Login</h2><br>
 			<label id="email">E-Mail</label> <br>
 			<input type='text' placeholder='Enter your email' name='email' required> <br>
@@ -29,7 +29,7 @@
 
 		</div>
 	</form>
-	<form action="../php/registration.php" method="post">
+	<form action="../PHP/registration.php" method="post">
 
 		<div class='sign-up'><h2>Sign-up</h2><br>
 			<label id="firstName">Vorname</label> <br>
@@ -56,12 +56,12 @@
 </form>
 
 
-<form action="../php/validateInput.php" method="post">
+<form action="../controllers/duration_controller.php" method="post">
 <div>
 	<div class='test-capture'><h2>Test-Capture</h2><br>
 		<label>Beispieltext1</label> <br>
 		<input type="text" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
-		<button type="submit" onclick="sendInputToPHP();getInputFromDB();">Save Duration in DB</button>
+		<button type="submit" onclick="sendInputToPHP();">Save Duration in DB</button>
 		<p id="time"></p>
 		<p id="difference"></p>
 	</div>
