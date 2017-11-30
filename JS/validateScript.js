@@ -41,9 +41,6 @@ function keyupFunction() {
     latency = time2Latency[time2Latency.length-1] - time1Latency[time1Latency.length-2];
     interval = time1Interval[time1Latency.length-1] - time2Interval[time2Interval.length-2];
 
-    document.getElementById('time').innerHTML = "Duration: " + duration + " KeyCode: "
-        + event.keyCode + " Latency: " + latency + " Interval: " + interval;
-
     saveKeyCode.push(event.keyCode);
     saveDuration.push(duration);
     saveLatency.push(latency);
@@ -59,7 +56,7 @@ function sendInputToPHP() {
 
     /* JSON String wird mit Hilfe von AJAX zu validaInput.php geparset */
     $.ajax({
-        url: 'duration_controller.php',
+        url: 'durationHandler.php',
         data: {jsonDuration: jsonDuration},
         type: 'post',
         dataType: 'json'
