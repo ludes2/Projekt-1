@@ -6,7 +6,7 @@
  * Time: 16:12
  */
 
-include_once  "validator.php";
+include_once "validator.php";
 
 class password_validator extends validator {
 

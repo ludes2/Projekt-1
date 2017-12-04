@@ -42,8 +42,7 @@ CREATE TABLE `averages` (
 CREATE TABLE `durations` (
   `dur_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `durations` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `durations` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -55,8 +54,7 @@ CREATE TABLE `durations` (
 CREATE TABLE `intervals` (
   `interval_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `intervals` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `intervals` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -68,8 +66,7 @@ CREATE TABLE `intervals` (
 CREATE TABLE `latencies` (
   `lat_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
-  `latencies` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+  `latencies` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------

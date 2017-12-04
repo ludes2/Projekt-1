@@ -59,28 +59,28 @@ function sendInputToPHP() {
 
     /* JSON String wird mit Hilfe von AJAX zu validaInput.php geparset */
     $.ajax({
-        url: 'validateInput.php',
+        url: 'duration_controller.php',
         data: {jsonDuration: jsonDuration},
         type: 'post',
         dataType: 'json'
     });
 
     $.ajax({
-        url: 'validateInput.php',
+        url: 'duration_controller.php',
         data: {jsonLatency: jsonLatency},
         type: 'post',
         dataType: 'json'
     });
 
     $.ajax({
-        url: 'validateInput.php',
+        url: 'duration_controller.php',
         data: {jsonInterval: jsonInterval},
         type: 'post',
         dataType: 'json'
     });
 }
 
-
+/*
 function getInputFromDB() {
 
     var oReq = new XMLHttpRequest(); //New request object
@@ -92,7 +92,7 @@ function getInputFromDB() {
     oReq.open("post", "validateInput.php", true);
 
     oReq.send();
-}
+}*/
 
 
 

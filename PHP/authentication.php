@@ -14,15 +14,15 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+
+
     if(checklogin($email, $password)) {
         $_SESSION['user'] = $email;
-        header('location: http://localhost:63342/Projekt-1/views/home.php');
-    } else {
-        // else.. ??
-    }
+       header('location: http://localhost:63342/Projekt-1/views/home.php');
+   }
 }
 
-if(!isset($_SESSION['user'])) {
-    echo "please log in"; //can also link to the loginpage
-    exit;
-}
+//if(!isset($_SESSION['user'])) {
+//    echo "please log in"; //can also link to the loginpage
+//    exit;
+//}

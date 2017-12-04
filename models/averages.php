@@ -6,7 +6,7 @@
  * Time: 16:15
  */
 
-include_once "../Website/PHP/db.php";
+include_once "../PHP/db.php";
 include_once "duration.php";
 
 class averages {
@@ -122,13 +122,17 @@ class averages {
      */
     public function getDurationAverage($userID){
         $userID = (int) $userID;
+        $averages = array();
         $result = db::doQuery(
             "SELECT av_duration FROM projekt1.averages WHERE user_id = $userID"
         );
         if(!$result) return null;
-        return $result->fetch_row();
-
+        while($row = $result->fetch_array()){
+            $averages = json_decode($row['av_duration'], true);
+        }
+        return $averages;
     }
+
 
 
 

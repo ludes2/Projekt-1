@@ -4,7 +4,7 @@
 	<title>Staffplaner Login/Sign-up</title>
 	<meta charset="UTF-8">
 	<link rel='stylesheet' href='../CSS/landingPage.css'/>
-	<link rel='stylesheet' href='../css/forms.css'/>
+	<link rel='stylesheet' href='../CSS/forms.css'/>
 	
 </head>
 
@@ -29,7 +29,7 @@
 
 		</div>
 	</form>
-	<form action="../php/registration.php" method="post">
+	<form action="../PHP/registration.php" method="post">
 
 		<div class='sign-up'><h2>Sign-up</h2><br>
 			<label id="firstName">Vorname</label> <br>
@@ -49,19 +49,24 @@
 </div>
 
 <form>
-	<textarea name="textarea" id="inputArea" rows="20" cols="200" onkeydown="keyDown()" onkeyup="keyUp()">
+	<label for="inputArea"></label><textarea name="textarea" id="inputArea" rows="20" cols="200" onkeydown="keyDown()" onkeyup="keyUp()">
 	</textarea>
 	<button type="button" onclick="showContent()">Export to file</button>
 	<p id="areaContent"></p>
 </form>
 
 
-<form action="../PHP/validateInput.php" method="post">
+
+
+	<form action="../controllers/duration_controller.php" method="post">
+
 <div>
 	<div class='test-capture'><h2>Test-Capture</h2><br>
 		<label>Beispieltext1</label> <br>
-		<input type="text" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
-		<button type="submit" onclick="sendInputToPHP();getInputFromDB();">Save Duration in DB</button>
+		<label>
+			<input type="text" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
+		</label>
+		<button type="submit" onclick="sendInputToPHP();">Save Duration in DB</button>
 		<p id="time"></p>
 		<p id="difference"></p>
 	</div>

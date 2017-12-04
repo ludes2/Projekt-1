@@ -6,7 +6,7 @@
  * Time: 14:01
  */
 
-include_once "../Website/PHP/db.php";
+include_once "../PHP/db.php";
 class duration
 {
 
@@ -91,19 +91,22 @@ class duration
     }
 
     /**
-     * @param $values
+     * @param $durations
+     * @param $userID
      * @return bool
+     * @internal param $values
      */
-    public static function insert($values)
+    public function insert($durations, $userID)
     {
         $stmt = db::getInstance()->prepare(
             "INSERT INTO projekt1.durations" . "(user_id, durations) " .
-            "VALUE (?, ?, ?)"
+            "VALUE (?, ?)"
         );
+        echo "hallo";
         if (!$stmt) return false;
         $success = $stmt->bind_param('is',
-            $values['user_id'],
-            $values['durations']
+            $userID,
+            $durations['durations']
         );
         if (!$success) return false;
         return $stmt->execute();

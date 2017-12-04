@@ -8,43 +8,10 @@
 
 include_once "db.php";
 
-//if(isset($_POST['email'], $_POST['password'])){
-//
-//    $db = db::getInstance();
-//
-//    $email = $_POST['email'];
-//    $password = $_POST['password'];
-//
-//
-//    if(!($stmt = $db->prepare("SELECT user_id, email, password, firstname, lastname FROM projekt1.users WHERE email = ? LIMIT 1"))) {
-//        echo "prepare failed: (" . $db->errno . " )" - $db->error;
-//    }
-//    if(!$stmt->bind_param('s', $email)) {
-//        echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
-//    }
-//    if(!$stmt->execute()) {
-//        echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
-//    }
-//
-//    $result = $stmt->get_result();
-//    $row = $result->fetch_assoc();
-//
-//    /*check if user exists*/
-//    if(!$row_count = $result->num_rows == 1) {
-//        echo("Your email address " . $email . " is incorrect");
-//        /*check if pw ist correct*/
-//    } elseif (!password_verify($password, $row['password'])) {
-//        echo("your password is incorrect");
-//    } else {
-//        echo("Login successful");
-//    }
-//
-//}
-
 /**
  * @param $email
  * @param $password
- * @return bool
+ * @return array
  */
 function checklogin($email, $password) {
 
@@ -62,6 +29,9 @@ function checklogin($email, $password) {
 
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
+        $_SESSION['userID'] = $row['user_id'];
+        //echo $_SESSION['userID'];
+
 
         /*check if user exists*/
         if (!$row_count = $result->num_rows == 1) {
@@ -72,7 +42,7 @@ function checklogin($email, $password) {
             echo("your password is incorrect");
             return false;
         } else {
-            echo("Login successful");
-            return true;
+            //echo("Login successful");
+            return array('success' => true, 'userID' => $_SESSION['userID']);
         }
 }
