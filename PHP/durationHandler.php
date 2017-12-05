@@ -10,13 +10,17 @@ include_once "../controllers/duration_controller.php";
 include_once "../PHP/db.php";
 
     $duration = new duration();
-    $test = new duration_controller($duration);
+
+    $d_controller = new duration_controller($duration);
+
+    global $test;
+
 
 
     if (isset($_POST['jsonDuration'])) {
         $json = $_POST['jsonDuration'];
 
-        $test->saveDurationInDB($json);
-        $test->compareDuration($json);
+        $d_controller->saveDurationInDB($json);
+        $d_controller->compareDuration($json);
     }
 
