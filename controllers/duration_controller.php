@@ -9,7 +9,8 @@
 include "../models/duration.php";
 include_once "../PHP/db.php";
 
-class duration_controller {
+class duration_controller
+{
 
     private $durationModel;
 
@@ -18,57 +19,58 @@ class duration_controller {
      * @param duration $durationModel
      */
 
-    /*
+
     function __construct(duration $durationModel) {
         $this->durationModel = $durationModel;
 
     }
-    */
 
-    function __construct(){
+
+
+
+    public function saveDurationInDB($duration)
+    {
+
+        return $this->durationModel->insert($duration, '7', '5');
     }
 
-    public static function saveDurationInDB($duration) {
+    public function compareDuration($jsonDuration)
+    {
 
-        return duration::insert($duration, '10',  '6');
-    }
 
-    public function compareDuration($jsonDuration) {
-
-<<<<<<< HEAD
         if (isset($_POST['jsonDuration'])) {
             $duration = $_POST['jsonDuration'];
             //echo $_POST['jsonDuration'];
-            $this->durationModel->insert($duration, 1);
-=======
-        /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
-        $testDuration = array("86", "78", "98", "86", "87"); /* Array mit hallo hier sollte average aus db sein */
-        $percentDuration = array();
-        $saveDuration = $jsonDuration;
+            $this->durationModel->insert($duration, 8, 5);
+            //duration::insert($duration, 10, 5);
 
-        $limit = 30;
->>>>>>> c0a58463fd5be9f808c919a6ce33d162a2f285d6
+            /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
+            $testDuration = array("86", "78", "98", "86", "87"); /* Array mit hallo hier sollte average aus db sein */
+            $percentDuration = array();
+            $saveDuration = $jsonDuration;
 
-        for ($i = 0; $i < 5; $i++) {
+            $limit = 30;
 
-            if (abs($testDuration[$i] - $saveDuration[$i]) > $limit) {
-                echo("Fehler - Person nicht erkannt");
-                break;
+
+            for ($i = 0; $i < 5; $i++) {
+
+                if (abs($testDuration[$i] - $saveDuration[$i]) > $limit) {
+                    echo("Fehler - Person nicht erkannt");
+                    break;
+                }
+
+                /* Werte in % umwandeln */
+                if ($testDuration[$i] > $saveDuration[$i]) {
+                    $percentDuration[$i] = (($saveDuration[$i] * 100) / $testDuration[$i]);
+                }
+
+                if ($testDuration[$i] < $saveDuration[$i]) {
+                    $percentDuration[$i] = (($testDuration[$i] * 100) / $saveDuration[$i]);
+                }
             }
 
-            /* Werte in % umwandeln */
-            if ($testDuration[$i] > $saveDuration[$i]) {
-                $percentDuration[$i] = (($saveDuration[$i] * 100) / $testDuration[$i]);
-            }
-
-            if ($testDuration[$i] < $saveDuration[$i]) {
-                $percentDuration[$i] = (($testDuration[$i] * 100) / $saveDuration[$i]);
-            }
+            /* Summe von Array / Länge des Arrays, Gesamt % von Duration
+            echo(round(percentDuration.reduce(getSum) / percentDuration.length) + "%"); */
         }
-
-    /* Summe von Array / Länge des Arrays, Gesamt % von Duration
-    echo(round(percentDuration.reduce(getSum) / percentDuration.length) + "%"); */
+    }
 }
-
-}
-

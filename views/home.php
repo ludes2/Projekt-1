@@ -25,7 +25,7 @@ $durationView->showDurationAverages(5);
 
 //$durationModel->insert(['1', '2', '3', '4', '5', '6'], 1);
 
-echo $_SESSION['user'];
+echo $_SESSION['userMail'];
 
 var_dump($_SESSION['userID']);
 

@@ -9,7 +9,9 @@
 include_once "../controllers/duration_controller.php";
 include_once "../PHP/db.php";
 
-    $test = new duration_controller();
+    $duration = new duration();
+    $test = new duration_controller($duration);
+
 
     if (isset($_POST['jsonDuration'])) {
         $json = $_POST['jsonDuration'];
