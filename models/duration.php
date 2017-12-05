@@ -67,14 +67,18 @@ class duration
      * @param $durId
      * @return null
      */
-    public function getDurationById($durId)
+    public static function getDurationById($durId)
     {
+        $getDuration = array();
         $durId = (int)$durId;
         $res = db::doQuery(
-            "SELECT durations FROM projekt1.durations WHERE dur_id = $durId"
+            "SELECT projekt1.durations.durations FROM projekt1.durations WHERE dur_id = $durId"
         );
         if (!$res) return null;
-        return $res->fetch_row();
+        while ($duration = $res->fetch_array()) {
+            $getDuration[] = json_decode($duration['durations'], true);
+        }
+        return $getDuration;
     }
 
     /**
@@ -96,36 +100,28 @@ class duration
      * @return bool
      * @internal param $values
      */
-<<<<<<< HEAD
-    public function insert($durations, $userID)
-    {
-        $stmt = db::getInstance()->prepare(
-            "INSERT INTO projekt1.durations" . "(user_id, durations) " .
-            "VALUE (?, ?)"
-        );
-        echo "hallo";
-=======
+
     public static function insert($durations, $dur_id, $user_id)
-    {
+        {
 
-        $stmt = db::getInstance()->prepare("INSERT INTO projekt1.durations (durations, dur_id, user_id) VALUES('$durations', '$dur_id', '$user_id')");
+            $stmt = db::getInstance()->prepare("INSERT INTO projekt1.durations (durations, dur_id, user_id) VALUES('$durations', '$dur_id', '$user_id')");
 
 
->>>>>>> c0a58463fd5be9f808c919a6ce33d162a2f285d6
-        if (!$stmt) return false;
-        return $stmt->execute();
+            if (!$stmt) return false;
+            return $stmt->execute();
 
-        /* Mitem bind geits nid..
-        $success = $stmt->bind_param('is',
-<<<<<<< HEAD
-            $userID,
-=======
-            $user_id['user_id'],
->>>>>>> c0a58463fd5be9f808c919a6ce33d162a2f285d6
-            $durations['durations']
-        );
-        if (!$success) return false; */
-    }
+            /* Mitem bind geits nid..
+            $success = $stmt->bind_param('is',
+
+                $userID,
+
+                $user_id['user_id'],
+
+                $durations['durations']
+            );
+            if (!$success) return false; */
+        }
+
 
 
     /**

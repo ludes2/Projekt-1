@@ -18,57 +18,50 @@ class duration_controller {
      * @param duration $durationModel
      */
 
-    /*
+
     function __construct(duration $durationModel) {
         $this->durationModel = $durationModel;
 
     }
-    */
 
-    function __construct(){
+
+    public function saveDurationInDB($duration) {
+
+        $this->durationModel->insert($duration, '5', '6');
     }
 
-    public static function saveDurationInDB($duration) {
-
-        return duration::insert($duration, '10',  '6');
-    }
 
     public function compareDuration($jsonDuration) {
 
-<<<<<<< HEAD
-        if (isset($_POST['jsonDuration'])) {
-            $duration = $_POST['jsonDuration'];
-            //echo $_POST['jsonDuration'];
-            $this->durationModel->insert($duration, 1);
-=======
-        /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
-        $testDuration = array("86", "78", "98", "86", "87"); /* Array mit hallo hier sollte average aus db sein */
-        $percentDuration = array();
-        $saveDuration = $jsonDuration;
+        $durationDB = $this->durationModel->getDurationById('2');
+        var_dump($durationDB);
 
-        $limit = 30;
->>>>>>> c0a58463fd5be9f808c919a6ce33d162a2f285d6
 
-        for ($i = 0; $i < 5; $i++) {
+        $getJSON = array();
+        $getJSON[] = json_decode($jsonDuration['durations'], true);
+        var_dump($getJSON);
 
-            if (abs($testDuration[$i] - $saveDuration[$i]) > $limit) {
-                echo("Fehler - Person nicht erkannt");
-                break;
+
+
+        //$limit = 30;
+        //$percentDuration = array();
+
+        /*
+        for ($i = 0; $i < sizeof($getDuration); $i++) {
+
+            if (abs($getDuration[$i] - $saveDuration[$i]) > $limit) {
+                return false;
             }
 
-            /* Werte in % umwandeln */
-            if ($testDuration[$i] > $saveDuration[$i]) {
-                $percentDuration[$i] = (($saveDuration[$i] * 100) / $testDuration[$i]);
+            /* Werte in % umwandeln
+            if ($getDuration[$i] > $saveDuration[$i]) {
+                $percentDuration[$i] = (($saveDuration[$i] * 100) / $getDuration[$i]);
             }
 
-            if ($testDuration[$i] < $saveDuration[$i]) {
-                $percentDuration[$i] = (($testDuration[$i] * 100) / $saveDuration[$i]);
+            if ($getDuration[$i] < $saveDuration[$i]) {
+                $percentDuration[$i] = (($getDuration[$i] * 100) / $saveDuration[$i]);
             }
-        }
-
-    /* Summe von Array / Länge des Arrays, Gesamt % von Duration
-    echo(round(percentDuration.reduce(getSum) / percentDuration.length) + "%"); */
-}
-
+        }*/
+    }
 }
 
