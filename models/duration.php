@@ -53,7 +53,7 @@ class duration
         $lastFiveDurations = array();
         $userId = (int)$userId;
         $res = db::doQuery(
-            "SELECT durations FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT $userId"
+            "SELECT durations FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT 5"
         );
         if (!$res) return null;
         while ($duration = $res->fetch_array()) {
