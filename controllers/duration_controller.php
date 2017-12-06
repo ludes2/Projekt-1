@@ -31,7 +31,7 @@ class duration_controller
     public function saveDurationInDB($duration)
     {
 
-        $this->durationModel->insert($duration, '4', '6');
+        $this->durationModel->insert($duration, '3', '6');
     }
 
 

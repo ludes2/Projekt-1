@@ -16,12 +16,12 @@ include_once "../models/averages.php";
 include_once "../views/averages_view.php";
 $durationModel = new duration();
 $durationView = new duration_view($durationModel);
-$durationView->showLastFiveDurations(5);
+$durationView->showLastFiveDurations(6);
 echo "<br/>";
 echo "<br/>";
 $averageModel = new averages();
 $durationView = new averages_view($averageModel);
-$durationView->showDurationAverages(5);
+$durationView->showDurationAverages(6);
 
 //$durationModel->insert(['1', '2', '3', '4', '5', '6'], 1);
 
