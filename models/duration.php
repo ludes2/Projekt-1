@@ -53,7 +53,7 @@ class duration
         $lastFiveDurations = array();
         $userId = (int)$userId;
         $res = db::doQuery(
-            "SELECT durations FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT $userId"
+            "SELECT durations FROM projekt1.durations WHERE user_id = $userId ORDER BY dur_id DESC LIMIT 5"
         );
         if (!$res) return null;
         while ($duration = $res->fetch_array()) {
@@ -76,7 +76,7 @@ class duration
         );
         if (!$res) return null;
         while ($duration = $res->fetch_array()) {
-            $getDuration = json_decode($duration['durations'], true); //Wäre doppleter Array
+            $getDuration = json_decode($duration['durations'], true);
         }
         return $getDuration;
     }
@@ -101,19 +101,6 @@ class duration
      * @internal param $values
      */
 
-
-//    public function insert($durations, $userID)
-//    {
-//        $stmt = db::getInstance()->prepare(
-//            "INSERT INTO projekt1.durations" . "(user_id, durations) " .
-//            "VALUE (?, ?)"
-//        );
-//        echo "hallo";
-
-//    public function insert($durations, $dur_id, $user_id)
-//    {
-//    }
-
     public function insert($durations, $dur_id, $user_id)
     {
 
@@ -134,10 +121,6 @@ class duration
             $durations['durations']
         );
         if (!$success) return false; */
-
-
-        if (!$stmt) return false;
-        return $stmt->execute();
     }
 
             /* Mitem bind geits nid..

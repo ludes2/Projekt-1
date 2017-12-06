@@ -24,8 +24,8 @@
             <label id="email">E-Mail</label> <br>
             <input type='text' placeholder='Enter your email' name='email' required> <br>
             <label id="loginPassword">Password</label> <br>
-            <input type='password' placeholder='Enter your password' name='password' required> <br>
-            <button type="submit">Login</button>
+            <input type='password' onkeydown="keydownFunction()" onkeyup="keyupFunction()" placeholder='Enter your password' name='password' required> <br>
+            <button type="submit" onclick="sendInputToPHP();">Login</button>
 
         </div>
     </form>
