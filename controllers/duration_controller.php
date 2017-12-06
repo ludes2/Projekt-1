@@ -9,7 +9,8 @@
 include "../models/duration.php";
 include_once "../PHP/db.php";
 
-class duration_controller {
+class duration_controller
+{
 
     private $durationModel;
 
@@ -18,60 +19,54 @@ class duration_controller {
      * @param duration $durationModel
      */
 
-    /*
-    function __construct(duration $durationModel) {
+
+    function __construct(duration $durationModel)
+    {
         $this->durationModel = $durationModel;
 
     }
-    */
 
-    function __construct()
+
+
+    public function saveDurationInDB($duration)
     {
+
+        $this->durationModel->insert($duration, '4', '6');
     }
 
-    public static function saveDurationInDB($duration)
+
+
+    public function compareDuration()
     {
 
-        return duration::insert($duration, '1', '5');
-    }
+        $durationDB1 = $this->durationModel->getDurationById('1'); //Hier Average Wert
 
-    public function compareDuration($jsonDuration)
-    {
-
-        if (isset($_POST['jsonDuration'])) {
-            $duration = $_POST['jsonDuration'];
-            //echo $_POST['jsonDuration'];
-            $this->durationModel->insert($duration, 1);
-
-            /*Berechnet Duration. Wenn Werte mehr als 30 ms auseinander -> False*/
-            $testDuration = array("86", "78", "98", "86", "87"); /* Array mit hallo hier sollte average aus db sein */
-            $percentDuration = array();
-            $saveDuration = $jsonDuration;
-
-            $limit = 30;
+        $durationDB2 = $this->durationModel->getDurationById('3'); //Hier gleiche ID wie bei insert
 
 
-            for ($i = 0; $i < 5; $i++) {
+        $limit = 30;
+        $percentDuration = array();
 
-                if (abs($testDuration[$i] - $saveDuration[$i]) > $limit) {
-                    echo("Fehler - Person nicht erkannt");
-                    break;
-                }
 
-                /* Werte in % umwandeln */
-                if ($testDuration[$i] > $saveDuration[$i]) {
-                    $percentDuration[$i] = (($saveDuration[$i] * 100) / $testDuration[$i]);
-                }
+        for ($i = 0; $i < sizeof($durationDB1); $i++) {
 
-                if ($testDuration[$i] < $saveDuration[$i]) {
-                    $percentDuration[$i] = (($testDuration[$i] * 100) / $saveDuration[$i]);
-                }
+            if (abs($durationDB2[$i] - $durationDB1[$i]) > $limit) {
+                return false;
             }
 
-            /* Summe von Array / Länge des Arrays, Gesamt % von Duration
-            echo(round(percentDuration.reduce(getSum) / percentDuration.length) + "%"); */
+            /* Werte in % umwandeln */
+            if ($durationDB2[$i] > $durationDB1[$i]) {
+                $percentDuration[$i] = (($durationDB1[$i] * 100) / $durationDB2[$i]);
+            }
+
+            if ($durationDB2[$i] < $durationDB1[$i]) {
+                $percentDuration[$i] = (($durationDB2[$i] * 100) / $durationDB1[$i]);
+            }
         }
 
+        /* Summe von Array / Länge des Arrays, Gesamt % von Duration */
+        $sum = array_sum($percentDuration);
+        $result = ($sum / sizeof($percentDuration));
+        return print_r($sum);
     }
 }
-

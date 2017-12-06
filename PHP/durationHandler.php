@@ -9,12 +9,24 @@
 include_once "../controllers/duration_controller.php";
 include_once "../PHP/db.php";
 
-    $test = new duration_controller();
+    $duration = new duration();
+
+    $d_controller = new duration_controller($duration);
+
+    global $json;
+
+
 
     if (isset($_POST['jsonDuration'])) {
         $json = $_POST['jsonDuration'];
-
-        $test->saveDurationInDB($json);
-        $test->compareDuration($json);
     }
+
+    $d_controller->saveDurationInDB($json); //var_dump geht nicht in if statement
+
+/*
+    if ($d_controller->compareDuration() == true) {
+        echo "True";
+    } else {
+        echo "False";
+    } */
 
