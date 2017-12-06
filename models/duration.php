@@ -101,6 +101,31 @@ class duration
      * @internal param $values
      */
 
+    public function insert($durations, $userId)
+    {
+
+        $db = db::getInstance();
+        $stmt = $db->prepare("INSERT INTO projekt1.durations (durations, user_id) VALUES (?, ?)");
+
+        /**for debugging reasons we use echo statements for this method*/
+        if (!$stmt) {
+            echo "prepare failed: (" . $db->errno . " )" - $db->error;
+        }
+        if (!$stmt->bind_param('si', $durations, $userId)) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+
+
+    }
+
+
+
+
+
+
 
     /**
      * @param $userID
