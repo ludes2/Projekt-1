@@ -57,7 +57,7 @@ class duration
         );
         if (!$res) return null;
         while ($duration = $res->fetch_array()) {
-            $lastFiveDurations[] = json_decode($duration['durations'], true);
+            $lastFiveDurations[] = json_decode($duration['durations'], true); //Wäre doppleter Array
         }
         return $lastFiveDurations;
     }
@@ -76,7 +76,7 @@ class duration
         );
         if (!$res) return null;
         while ($duration = $res->fetch_array()) {
-            $getDuration[] = json_decode($duration['durations'], true);
+            $getDuration = json_decode($duration['durations'], true); //Wäre doppleter Array
         }
         return $getDuration;
     }
