@@ -7,7 +7,7 @@
  */
 
 include_once "login.php";
-include_once "../controllers/duration_controller.php";
+include "../controllers/duration_controller.php";
 include_once "../PHP/db.php";
 
 session_start();
@@ -25,23 +25,13 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
 }
 
 
-
-
 $duration = new duration();
-
 $d_controller = new duration_controller($duration);
-
-global $json;
-
 
 
 if (isset($_POST['jsonDuration'])) {
     $json = $_POST['jsonDuration'];
+
+    $d_controller->saveDurationInDB($json);
+    $d_controller->saveDurationAverage();
 }
-
-$d_controller->saveDurationInDB($json); //var_dump geht nicht in if statement
-
-//if(!isset($_SESSION['userMail'])) {
-//    echo "please log in"; //can also link to the loginpage
-//    exit;
-//}

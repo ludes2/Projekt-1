@@ -67,7 +67,7 @@ class duration
      * @param $durId
      * @return null
      */
-    public static function getDurationById($durId)
+    public function getDurationById($durId)
     {
         $getDuration = array();
         $durId = (int)$durId;
@@ -80,6 +80,15 @@ class duration
         }
         return $getDuration;
     }
+
+    public function getLastDurationID() {
+
+        $res = db::doQuery(
+            "SELECT projekt1.durations.dur_id FROM projekt1.durations ORDER BY dur_id DESC LIMIT 1"
+        );
+        if (!$res) return null;
+    }
+
 
     /**
      * @param $durId
@@ -120,12 +129,6 @@ class duration
 
 
     }
-
-
-
-
-
-
 
     /**
      * @param $userID
