@@ -101,44 +101,7 @@ class duration
      * @internal param $values
      */
 
-    public function insert($durations, $dur_id, $user_id)
-    {
-
-
-        $stmt = db::getInstance()->prepare("INSERT INTO projekt1.durations (durations, dur_id, user_id) VALUES('$durations', '$dur_id', '$user_id')");
-
-
-        if (!$stmt) return false;
-        return $stmt->execute();
-
-        /* Mitem bind geits nid..
-        $success = $stmt->bind_param('is',
-
-            $userID,
-
-            $user_id['user_id'],
-
-            $durations['durations']
-        );
-        if (!$success) return false; */
-    }
-
-            /* Mitem bind geits nid..
-            $success = $stmt->bind_param('is',
-
-                $userID,
-
-                $user_id['user_id'],
-
-                $durations['durations']
-            );
-            if (!$success) return false; */
-
-
-
-
-
-
+    
     /**
      * @param $userID
      * @return array
