@@ -9,8 +9,12 @@
 include "../models/duration.php";
 include_once "../PHP/db.php";
 
+session_start();
+
 class duration_controller
 {
+
+
 
     private $durationModel;
 
@@ -31,7 +35,12 @@ class duration_controller
     public function saveDurationInDB($duration)
     {
 
-        $this->durationModel->insert($duration, '3', '6');
+
+        $userID = $_SESSION['userID']; // ????????????
+        $this->durationModel->insert($duration, $userID);
+//        var_dump($_SESSION['userID']);
+
+        //$this->durationModel->insert($duration, '5');
     }
 
 

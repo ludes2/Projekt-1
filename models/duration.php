@@ -101,38 +101,26 @@ class duration
      * @internal param $values
      */
 
-    public function insert($durations, $dur_id, $user_id)
+    public function insert($durations, $userId)
     {
 
+        $db = db::getInstance();
+        $stmt = $db->prepare("INSERT INTO projekt1.durations (durations, user_id) VALUES (?, ?)");
 
-        $stmt = db::getInstance()->prepare("INSERT INTO projekt1.durations (durations, dur_id, user_id) VALUES('$durations', '$dur_id', '$user_id')");
+        /**for debugging reasons we use echo statements for this method*/
+        if (!$stmt) {
+            echo "prepare failed: (" . $db->errno . " )" - $db->error;
+        }
+        if (!$stmt->bind_param('si', $durations, $userId)) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
 
 
-        if (!$stmt) return false;
-        return $stmt->execute();
-
-        /* Mitem bind geits nid..
-        $success = $stmt->bind_param('is',
-
-            $userID,
-
-            $user_id['user_id'],
-
-            $durations['durations']
-        );
-        if (!$success) return false; */
     }
 
-            /* Mitem bind geits nid..
-            $success = $stmt->bind_param('is',
-
-                $userID,
-
-                $user_id['user_id'],
-
-                $durations['durations']
-            );
-            if (!$success) return false; */
 
 
 
