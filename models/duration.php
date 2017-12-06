@@ -101,7 +101,7 @@ class duration
      * @internal param $values
      */
 
-    
+
     /**
      * @param $userID
      * @return array
