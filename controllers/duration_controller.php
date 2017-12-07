@@ -6,10 +6,8 @@
  * Time: 16:45
  */
 
-include "../models/duration.php";
+include_once "../models/duration.php";
 include_once "../PHP/db.php";
-
-session_start();
 
 class duration_controller
 {
@@ -52,10 +50,10 @@ class duration_controller
         $lastID = $this->durationModel->getLastDurationID();
 
         $durationDB1 = $this->durationModel->getDurationById('5'); //Hier Average Wert
-        $durationDB2 = $this->durationModel->getDurationById($lastID); //Hier gleiche ID wie bei insert
+        $durationDB2 = $this->durationModel->getDurationById('6'); //Hier gleiche ID wie bei insert
 
 
-        $limit = 30;
+        $limit = 50;
         $percentDuration = array();
 
 
@@ -77,12 +75,13 @@ class duration_controller
 
         /* Summe von Array / Länge des Arrays, Gesamt % von Duration */
         $sum = array_sum($percentDuration);
-        return $result = ($sum / sizeof($percentDuration));
+        global $result;
+        $result = (round($sum / sizeof($percentDuration)));
+        return true;
     }
 
     public function getPercent() {
-
-        $this->compareDuration();
+        global $result;
+        print_r($result . "%");
     }
 }
-
