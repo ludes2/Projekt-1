@@ -25,11 +25,13 @@ if(isset($_POST['email']) && isset($_POST['password'])) {
 }
 
 
-
+/**will be changed ASAP**/
 
 $duration = new duration();
+$averages = new averages();
 
 $d_controller = new duration_controller($duration);
+$av_controller = new averages_controller($averages);
 
 global $json;
 
@@ -37,9 +39,12 @@ global $json;
 
 if (isset($_POST['jsonDuration'])) {
     $json = $_POST['jsonDuration'];
+    $d_controller->saveDurationInDB($json); //var_dump geht nicht in if statement
+    $test = $duration->calculateAverage($_SESSION['userID']);
+    $av_controller->saveAveragesInDB($test);
 }
 
-$d_controller->saveDurationInDB($json); //var_dump geht nicht in if statement
+
 
 //if(!isset($_SESSION['userMail'])) {
 //    echo "please log in"; //can also link to the loginpage

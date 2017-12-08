@@ -40,7 +40,14 @@ class duration_controller
         $this->durationModel->insert($duration, $userID);
 //        var_dump($_SESSION['userID']);
 
-        //$this->durationModel->insert($duration, '5');
+    }
+
+    /**
+     * wandelt den Wert von compareDuration in % um
+     */
+    public function calculatePercent()
+    {
+
     }
 
 

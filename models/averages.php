@@ -103,18 +103,24 @@ class averages {
      * @param $values
      * @return bool
      */
-    public function insert($values){
-        $stmt = db::getInstance()->prepare(
-            "INSERT INTO projekt1.averages" . "(av_duration)" .
-            "VALUE (?)"
-        );
-        if(!$stmt) return false;
-        $success = $stmt->bind_param('s',
-            $values['av_duration']
-        );
-        if(!$success) return false;
-        return $stmt->execute();
+    public function insert($values, $userId)
+    {
+        $db = db::getInstance();
+        $stmt = $db->prepare("INSERT INTO projekt1.averages (av_duration, user_id) VALUES (?)");
+
+        if (!$stmt) {
+            echo "prepare failed: (" . $db->errno . " )" - $db->error;
+        }
+        if (!$stmt->bind_param('si', $values, $userId)) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
     }
+
+
+
 
     /**
      * @param $userID
@@ -129,6 +135,40 @@ class averages {
         if(!$result) return null;
         while($row = $result->fetch_array()){
             $averages = json_decode($row['av_duration'], true);
+        }
+        return $averages;
+    }
+
+    /**
+     * @param $userID
+     * @return null
+     */
+    public function getIntervalAverage($userID){
+        $userID = (int) $userID;
+        $averages = array();
+        $result = db::doQuery(
+            "SELECT av_interval FROM projekt1.averages WHERE user_id = $userID"
+        );
+        if(!$result) return null;
+        while($row = $result->fetch_array()){
+            $averages = json_decode($row['av_interval'], true);
+        }
+        return $averages;
+    }
+
+    /**
+     * @param $userID
+     * @return null
+     */
+    public function getLatencyAverage($userID){
+        $userID = (int) $userID;
+        $averages = array();
+        $result = db::doQuery(
+            "SELECT av_latency FROM projekt1.averages WHERE user_id = $userID"
+        );
+        if(!$result) return null;
+        while($row = $result->fetch_array()){
+            $averages = json_decode($row['av_latency'], true);
         }
         return $averages;
     }

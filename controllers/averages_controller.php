@@ -6,6 +6,10 @@
  * Time: 16:30
  */
 
+include "../models/duration.php";
+include_once "../PHP/db.php";
+session_start();
+
 class averages_controller {
 
     private $averages;
@@ -17,6 +21,18 @@ class averages_controller {
     function __construct(averages $averages) {
         $this->averages = $averages;
     }
+
+    /**
+     * @param $averages
+     */
+    public function saveAveragesInDB($averages)
+    {
+        $userID = $_SESSION['userID'];
+        $this->averages->insert($averages, $userID);
+
+    }
+
+
 
 
 

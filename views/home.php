@@ -14,6 +14,7 @@ include_once "../models/duration.php";
 include "../views/duration_view.php";
 include_once "../models/averages.php";
 include_once "../views/averages_view.php";
+
 $durationModel = new duration();
 $durationView = new duration_view($durationModel);
 $durationView->showLastFiveDurations(6);

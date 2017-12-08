@@ -48,25 +48,5 @@
     </form>
 </div>
 
-<form>
-	<textarea name="textarea" id="inputArea" rows="20" cols="200" onkeydown="keyDown()" onkeyup="keyUp()">
-	</textarea>
-    <button type="button" onclick="showContent()">Export to file</button>
-    <p id="areaContent"></p>
-</form>
-
-
-<form action="durationHandler.php" method="post">
-    <div>
-        <div class='test-capture'><h2>Test-Capture</h2><br>
-            <label>Beispieltext1</label> <br>
-            <input type="text" onkeydown="keydownFunction()" onkeyup="keyupFunction()">
-            <button type="submit" onclick="sendInputToPHP();">Save Duration in DB</button>
-            <p id="time"></p>
-            <p id="difference"></p>
-        </div>
-    </div>
-</form>
-
 </body>
 </html>
