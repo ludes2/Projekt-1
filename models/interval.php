@@ -6,6 +6,8 @@
  * Time: 15:48
  */
 
+require_once "../PHP/db.php";
+
 class interval
 {
     private $interval_id, $user_id, $intervals;
@@ -14,6 +16,30 @@ class interval
     {
     }
 
+
+    /**
+     * @return mixed
+     */
+    public function getDurId()
+    {
+        return $this->interval_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDurations()
+    {
+        return $this->intervals;
+    }
 
 
     /**
@@ -32,6 +58,67 @@ class interval
             $lastFiveIntervals[] = json_decode($intervals['intervals'], true);
         }
         return $lastFiveIntervals;
+    }
+
+
+    /**
+     * @param $intId
+     * @return null
+     */
+    public function getIntervalById($intId)
+    {
+        $getInterval = array();
+        $intId = (int)$intId;
+        $res = db::doQuery(
+            "SELECT projekt1.intervals.intervals FROM projekt1.intervals WHERE interval_id = $intId"
+        );
+        if (!$res) return null;
+        while ($interval = $res->fetch_array()) {
+            $getInterval = json_decode($interval['intervals'], true);
+        }
+        return $getInterval;
+    }
+
+
+    public function getLastIntervalID() {
+
+        $res = db::doQuery(
+            "SELECT projekt1.intervals.interval_id FROM projekt1.intervals ORDER BY interval_id DESC LIMIT 1"
+        );
+        if (!$res) return null;
+    }
+
+
+    /**
+     * @param $intId
+     * @return bool
+     */
+    public static function delete($intId)
+    {
+        $intId = (int)$intId;
+        $res = db::doQuery(
+            "DELETE FROM projekt1.intervals WHERE interval_id = $intId"
+        );
+        return $res != null;
+    }
+
+
+    public function insert($intervals, $userId)
+    {
+
+        $db = db::getInstance();
+        $stmt = $db->prepare("INSERT INTO projekt1.intervals (intervals, user_id) VALUES (?, ?)");
+
+        /**for debugging reasons we use echo statements for this method*/
+        if (!$stmt) {
+            echo "prepare failed: (" . $db->errno . " )" - $db->error;
+        }
+        if (!$stmt->bind_param('si', $intervals, $userId)) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
     }
 
     /**

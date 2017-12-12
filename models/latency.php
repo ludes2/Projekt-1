@@ -16,6 +16,30 @@ class latency
     }
 
     /**
+     * @return mixed
+     */
+    public function getLatId()
+    {
+        return $this->lat_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLatencies()
+    {
+        return $this->latencies;
+    }
+
+    /**
      * @param $userId
      * @return array|null
      */
@@ -31,6 +55,73 @@ class latency
             $lastFiveLatencies[] = json_decode($latencies['latencies'], true);
         }
         return $lastFiveLatencies;
+    }
+
+
+    /**
+     * @param $latId
+     * @return null
+     */
+    public function getLatencyById($latId)
+    {
+        $getLatency = array();
+        $latId = (int)$latId;
+        $res = db::doQuery(
+            "SELECT projekt1.latencies.latencies FROM projekt1.latencies WHERE lat_id = $latId"
+        );
+        if (!$res) return null;
+        while ($latency = $res->fetch_array()) {
+            $getLatency = json_decode($latency['latencies'], true);
+        }
+        return $getLatency;
+    }
+
+
+    public function getLastLatencyID() {
+
+        $res = db::doQuery(
+            "SELECT projekt1.latencies.lat_id FROM projekt1.latencies ORDER BY lat_id DESC LIMIT 1"
+        );
+        if (!$res) return null;
+    }
+
+
+    /**
+     * @param $latId
+     * @return bool
+     */
+    public static function delete($latId)
+    {
+        $latId = (int)$latId;
+        $res = db::doQuery(
+            "DELETE FROM projekt1.latencies WHERE lat_id = $latId"
+        );
+        return $res != null;
+    }
+
+    /**
+     * @param $latencies
+     * @param $userID
+     * @return bool
+     * @internal param $values
+     */
+
+    public function insert($latencies, $userId)
+    {
+
+        $db = db::getInstance();
+        $stmt = $db->prepare("INSERT INTO projekt1.latencies (latencies, user_id) VALUES (?, ?)");
+
+        /**for debugging reasons we use echo statements for this method*/
+        if (!$stmt) {
+            echo "prepare failed: (" . $db->errno . " )" - $db->error;
+        }
+        if (!$stmt->bind_param('si', $latencies, $userId)) {
+            echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
+        if (!$stmt->execute()) {
+            echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
+        }
     }
 
     /**

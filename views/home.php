@@ -47,9 +47,9 @@ echo "<br>";
 
 
 echo "<b>Accuracy Duration: </b>";
-$durationController = new duration_controller($durationModel);
+$durationController = new duration_controller();
 $durationController->compareDuration();
-$durationController->getPercent();
+$durationController->getDurationPercent();
 ?>
 
 </body>

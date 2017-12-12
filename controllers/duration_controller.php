@@ -72,7 +72,7 @@ class duration_controller
         $lastID = $this->durationModel->getLastDurationID();
 
         $durationDB1 = $this->durationModel->getDurationById('5'); //Hier Average Wert
-        $durationDB2 = $this->durationModel->getDurationById('6'); //Hier gleiche ID wie bei insert
+        $durationDB2 = $this->durationModel->getDurationById('6'); //Hier Last ID
 
 
         $limit = 50;
@@ -102,7 +102,7 @@ class duration_controller
         return true;
     }
 
-    public function getPercent() {
+    public function getDurationPercent() {
         global $result;
         print_r($result . "%");
     }
