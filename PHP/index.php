@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Staffplaner Login/Sign-up</title>
+    <title>Benutzer Profiling Login/Sign-up</title>
     <meta charset="UTF-8">
     <link rel='stylesheet' href='../CSS/landingPage.css'/>
     <link rel='stylesheet' href='../CSS/forms.css'/>

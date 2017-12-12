@@ -13,7 +13,7 @@ session_start();
 /**
  * @param $email
  * @param $password
- * @return array
+ * @return array|bool
  */
 function checklogin($email, $password) {
 

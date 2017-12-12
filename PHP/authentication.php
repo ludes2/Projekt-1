@@ -10,8 +10,13 @@ require_once "login.php";
 /**
  * @return array|bool
  */
+
 function authenticate()
 {
+
+    //static $success = false;
+    //static $userId = "";
+   // static $result;
     if (isset($_POST['email']) && isset($_POST['password'])) {
         $email = $_POST['email'];
         $password = $_POST['password'];
@@ -19,23 +24,21 @@ function authenticate()
         $data = checklogin($email, $password);
         $success = $data['success'];
         $userId = $data['userID'];
-
-
-        if ($success == true) {
-            if (session_status() == PHP_SESSION_NONE) {
-                session_start();
-            }
-            // wenn login erfolgreich, dann auf home Seite weiterleiten
-            header('location: http://localhost:63342/Projekt-1/views/home.php');
-            $result = array('authenticated' => true, 'userID' => $userId);
-            return $result;
-        } else {
-            return false;
-        }
+        var_dump($data); //for debugging reasons... checklogin works!!!
+    }
+    if ($success == true) {
+        // wenn login erfolgreich, dann auf home Seite weiterleiten
+        header('location: http://localhost:63342/Projekt-1/views/home.php');
+        $result = ['authenticated' => true, 'userID' => $userId];
+        return $result;
+    } else if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    } else {
+        $result = array ('authenticated' => false);
         return $result;
     }
-
 }
+
 
 
 

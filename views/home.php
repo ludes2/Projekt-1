@@ -8,20 +8,13 @@
 <h1>Home UserInputs</h1>
 <?php
 
-//session_start();
+session_start();
 
 include_once "../models/duration.php";
 include "../views/duration_view.php";
 include_once "../models/averages.php";
 include_once "../views/averages_view.php";
 include_once "../controllers/duration_controller.php";
-include_once "../PHP/authentication.php";
-
-$data = authenticate();
-$authenticated = $data['authenticated'];
-$userId = $data['userID'];
-var_dump($data);
-
 
 echo "<b>Last five durations: </b>" . "<br>";
 

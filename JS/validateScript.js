@@ -56,7 +56,7 @@ function sendInputToPHP() {
 
     /* JSON String wird mit Hilfe von AJAX zu validaInput.php geparset */
     $.ajax({
-        url: 'authentication.php',
+        url: 'front_controller.php',
         data: {jsonDuration: jsonDuration},
         type: 'post',
         dataType: 'json'

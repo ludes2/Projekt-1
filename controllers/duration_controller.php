@@ -42,7 +42,7 @@ class duration_controller
 
     public function saveDurationInDB($duration)
     {
-
+        session_start();
         $userID = $_SESSION['userID'];
         $this->durationModel->insert($duration, $userID);
     }
