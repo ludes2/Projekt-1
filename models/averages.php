@@ -6,15 +6,16 @@
  * Time: 16:15
  */
 
-include_once "../PHP/db.php";
-include_once "duration.php";
+require_once "../PHP/db.php";
+require_once "duration.php";
 
 class averages {
 
     private $av_id, $user_id, $dur_id, $av_duration, $lat_id, $av_latency, $interval_id, $av_interval;
-    //private $duration;
+    private $duration;
 
     function __construct() {
+        //$this->av_duration = $this->duration->calculateAverage();
 
     }
 

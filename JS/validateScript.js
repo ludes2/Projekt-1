@@ -56,7 +56,7 @@ function sendInputToPHP() {
 
     /* JSON String wird mit Hilfe von AJAX zu validaInput.php geparset */
     $.ajax({
-        url: 'durationHandler.php',
+        url: 'authentication.php',
         data: {jsonDuration: jsonDuration},
         type: 'post',
         dataType: 'json'
@@ -76,21 +76,6 @@ function sendInputToPHP() {
         dataType: 'json'
     });
 }
-
-/*
-function getInputFromDB() {
-
-    var oReq = new XMLHttpRequest(); //New request object
-    oReq.onload = function() {
-        //This is where you handle what to do with the response.
-        //The actual data is found on this.responseText
-        alert(this.responseText);
-    };
-    oReq.open("post", "validateInput.php", true);
-
-    oReq.send();
-}*/
-
 
 
 function compareDuration() {
@@ -150,11 +135,6 @@ function compareInterval() {
 
 /* ------------------------------------------------------------------------------ */
 
-/* Summe von Array */
-function getSum(total, num) {
-    return total + num;
-}
-
 /*Array als txt Datei speichern*/
 function exportToFile() {
 
@@ -169,83 +149,3 @@ function exportToFile() {
     hiddenElement.download = 'myFile.txt';
     hiddenElement.click();
 }
-
-
-
-/* function createCookies() {
-
-    Counter wird im LocalStorage gespeichert, damit nach reload der Page nicht der counter = 0 ist
-if (localStorage.clickcount >= 5) {
-    localStorage.clickcount = 0;
-}
-
-if (localStorage.clickcount) {
-    localStorage.clickcount = Number(localStorage.clickcount) + 1;
-} else {
-    localStorage.clickcount = 1;
-}
-
-document.getElementById("result").innerHTML = "You have clicked the button " + localStorage.clickcount + " time(s).";
-
-var cookieDurationString = "durationCookie" + localStorage.clickcount;
-var json_duration = JSON.stringify(saveDuration);
-createCookie(cookieDurationString, json_duration, 2); /* 2 = Expire date
-location.reload(); /* Website wird automatisch neu geladen
-}
-
-Cookies holen, in Array umwandeln, dann den Durchschnitt der Werte berechnen
-function validateDurationCookies() {
-
-    var json_str1 = getCookie("durationCookie1");
-    var jsonDuration1 = JSON.parse(json_str1);
-
-    var json_str2 = getCookie("durationCookie2");
-    var jsonDuration2 = JSON.parse(json_str2);
-
-    var json_str3 = getCookie("durationCookie3");
-    var jsonDuration3 = JSON.parse(json_str3);
-
-    var json_str4 = getCookie("durationCookie4");
-    var jsonDuration4 = JSON.parse(json_str4);
-
-    var json_str5 = getCookie("durationCookie5");
-    var jsonDuration5 = JSON.parse(json_str5);
-
-
-    for (var i = 0; i < jsonDuration1.length; i++) {
-
-        validateDuration[i] = Math.round((jsonDuration1[i] + jsonDuration2[i] + jsonDuration3[i] + jsonDuration4[i]
-            + jsonDuration5[i]) / 5);
-    }
-
-    alert(validateDuration); /*validateDuration würde dann in DB abgespeichert werden
-}
-
-Diese set, get Funktionen mussten kopiert werden sonst funktionieren cookies nicht
-var createCookie = function(name, value, days) {
-    var expires;
-    if (days) {
-        var date = new Date();
-        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-        expires = "; expires=" + date.toGMTString();
-    }
-    else {
-        expires = "";
-    }
-    document.cookie = name + "=" + value + expires + "; path=/";
-}
-
-function getCookie(c_name) {
-    if (document.cookie.length > 0) {
-        c_start = document.cookie.indexOf(c_name + "=");
-        if (c_start != -1) {
-            c_start = c_start + c_name.length + 1;
-            c_end = document.cookie.indexOf(";", c_start);
-            if (c_end == -1) {
-                c_end = document.cookie.length;
-            }
-            return unescape(document.cookie.substring(c_start, c_end));
-        }
-    }
-    return "";
-} */

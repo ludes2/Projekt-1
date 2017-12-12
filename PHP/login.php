@@ -8,6 +8,8 @@
 
 include_once "db.php";
 
+session_start();
+
 /**
  * @param $email
  * @param $password
@@ -30,8 +32,6 @@ function checklogin($email, $password) {
         $result = $stmt->get_result();
         $row = $result->fetch_assoc();
         $_SESSION['userID'] = $row['user_id'];
-        //echo $_SESSION['userID'];
-
 
         /*check if user exists*/
         if (!$row_count = $result->num_rows == 1) {
@@ -42,7 +42,6 @@ function checklogin($email, $password) {
             echo("your password is incorrect");
             return false;
         } else {
-            //echo("Login successful");
             return array('success' => true, 'userID' => $_SESSION['userID']);
         }
 }

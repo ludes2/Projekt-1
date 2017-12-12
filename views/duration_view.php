@@ -9,9 +9,11 @@
 class duration_view
 {
     private $durationModel;
+    private $route;
 
     function __construct(duration $durationModel)
     {
+        //$this->route = $route;
         $this->durationModel = $durationModel;
     }
 
@@ -31,5 +33,7 @@ class duration_view
         }
 
     }
+
+
 
 }

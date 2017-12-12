@@ -7,8 +7,8 @@
  */
 
 include "../models/duration.php";
-include_once "../PHP/db.php";
-session_start();
+require_once "../PHP/db.php";
+//session_start();
 
 class averages_controller {
 
@@ -18,9 +18,10 @@ class averages_controller {
      * averages_controller constructor.
      * @param averages $averages
      */
-    function __construct(averages $averages) {
-        $this->averages = $averages;
+    function __construct() {
+        $this->averages =  new averages();
     }
+
 
     /**
      * @param $averages
@@ -30,6 +31,11 @@ class averages_controller {
         $userID = $_SESSION['userID'];
         $this->averages->insert($averages, $userID);
 
+    }
+
+    public function getAverages()
+    {
+        return $this->averages;
     }
 
 

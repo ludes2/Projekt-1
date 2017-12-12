@@ -6,10 +6,8 @@
  * Time: 16:45
  */
 
-include "../models/duration.php";
-include_once "../PHP/db.php";
-
-session_start();
+require_once "../models/duration.php";
+require_once "../PHP/db.php";
 
 class duration_controller
 {
@@ -18,16 +16,26 @@ class duration_controller
 
     private $durationModel;
 
-    /**
-     * duration_controller constructor.
-     * @param duration $durationModel
-     */
+
+//    /**
+//     * duration_controller constructor.
+//     * @param duration $durationModel
+//     */
+//    function __construct(duration $durationModel)
+//    {
+//        $this->durationModel = $durationModel;
+//    }
 
 
-    function __construct(duration $durationModel)
+    function __construct()
     {
-        $this->durationModel = $durationModel;
+        $this->durationModel = new duration();
+    }
 
+
+    public function getDurationModel()
+    {
+        return $this->durationModel;
     }
 
 
@@ -35,18 +43,25 @@ class duration_controller
     public function saveDurationInDB($duration)
     {
 
-
-        $userID = $_SESSION['userID']; // ????????????
+        $userID = $_SESSION['userID'];
         $this->durationModel->insert($duration, $userID);
-//        var_dump($_SESSION['userID']);
-
     }
+
+
+
 
     /**
      * wandelt den Wert von compareDuration in % um
      */
     public function calculatePercent()
-    {
+{
+}
+
+
+    public function saveDurationAverage() {
+
+        $userID = $_SESSION['userID'];
+        $this->durationModel->calculateAverage($userID);
 
     }
 
@@ -54,13 +69,13 @@ class duration_controller
 
     public function compareDuration()
     {
+        $lastID = $this->durationModel->getLastDurationID();
 
-        $durationDB1 = $this->durationModel->getDurationById('1'); //Hier Average Wert
+        $durationDB1 = $this->durationModel->getDurationById('5'); //Hier Average Wert
+        $durationDB2 = $this->durationModel->getDurationById('6'); //Hier gleiche ID wie bei insert
 
-        $durationDB2 = $this->durationModel->getDurationById('3'); //Hier gleiche ID wie bei insert
 
-
-        $limit = 30;
+        $limit = 50;
         $percentDuration = array();
 
 
@@ -82,7 +97,13 @@ class duration_controller
 
         /* Summe von Array / Länge des Arrays, Gesamt % von Duration */
         $sum = array_sum($percentDuration);
-        $result = ($sum / sizeof($percentDuration));
-        return print_r($sum);
+        global $result;
+        $result = (round($sum / sizeof($percentDuration)));
+        return true;
+    }
+
+    public function getPercent() {
+        global $result;
+        print_r($result . "%");
     }
 }
