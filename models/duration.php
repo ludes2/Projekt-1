@@ -126,8 +126,6 @@ class duration
         if (!$stmt->execute()) {
             echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
         }
-
-
     }
 
     /**
