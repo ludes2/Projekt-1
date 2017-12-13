@@ -33,7 +33,4 @@ class duration_view
         }
 
     }
-
-
-
 }

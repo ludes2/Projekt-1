@@ -11,14 +11,18 @@
 session_start();
 
 include_once "../models/duration.php";
+include_once "../models/interval.php";
+include_once "../models/latency.php";
 include "../views/duration_view.php";
+include "../views/interval_view.php";
+include "../views/latency_view.php";
 include_once "../models/averages.php";
 include_once "../views/averages_view.php";
 include_once "../controllers/duration_controller.php";
+include_once "../controllers/interval_controller.php";
+include_once "../controllers/latency_controller.php";
 
 echo "<b>Last five durations: </b>" . "<br>";
-
-
 
 $durationModel = new duration();
 $durationView = new duration_view($durationModel);
@@ -43,6 +47,19 @@ echo "<b>Accuracy Duration: </b>";
 $durationController = new duration_controller();
 $durationController->compareDuration();
 $durationController->getDurationPercent();
+echo "<br>";
+
+echo "<b>Accuracy Interval: </b>";
+$intervalController = new interval_controller();
+$intervalController->compareInterval();
+$intervalController->getIntervalPercent();
+echo "<br>";
+
+echo "<b>Accuracy Latency: </b>";
+$latencyController = new latency_controller();
+$latencyController->compareLatency();
+$latencyController->getLatencyPercent();
+echo "<br>";
 ?>
 
 </body>

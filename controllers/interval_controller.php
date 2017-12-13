@@ -32,6 +32,7 @@ class interval_controller
     public function saveIntervalInDB($interval)
     {
 
+        session_start();
         $userID = $_SESSION['userID'];
         $this->intervalModel->insert($interval, $userID);
     }

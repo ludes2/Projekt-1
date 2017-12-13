@@ -19,7 +19,7 @@
 </div>
 
 <div class='flex-container'>
-    <form action="../util/front_controller.php" method="post">
+    <form action="front_controller.php" method="post">
     <!-- <form action="../PHP/authentication.php" method="post"> -->
         <div class='login'><h2>Login</h2><br>
             <label id="email">E-Mail</label> <br>

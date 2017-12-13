@@ -20,7 +20,7 @@ class interval
     /**
      * @return mixed
      */
-    public function getDurId()
+    public function getIntId()
     {
         return $this->interval_id;
     }
@@ -36,7 +36,7 @@ class interval
     /**
      * @return mixed
      */
-    public function getDurations()
+    public function getIntervals()
     {
         return $this->intervals;
     }

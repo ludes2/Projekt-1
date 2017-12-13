@@ -54,7 +54,7 @@ function sendInputToPHP() {
     var jsonLatency = JSON.stringify(saveLatency);
     var jsonInterval = JSON.stringify(saveInterval);
 
-    /* JSON String wird mit Hilfe von AJAX zu validaInput.php geparset */
+    /* JSON String wird mit Hilfe von AJAX zu front_controller.php geparset */
     $.ajax({
         url: 'front_controller.php',
         data: {jsonDuration: jsonDuration},
@@ -63,15 +63,15 @@ function sendInputToPHP() {
     });
 
     $.ajax({
-        url: 'duration_controller.php',
-        data: {jsonLatency: jsonLatency},
+        url: 'front_controller.php',
+        data: {jsonInterval: jsonInterval},
         type: 'post',
         dataType: 'json'
     });
 
     $.ajax({
-        url: 'duration_controller.php',
-        data: {jsonInterval: jsonInterval},
+        url: 'front_controller.php',
+        data: {jsonLatency: jsonLatency},
         type: 'post',
         dataType: 'json'
     });

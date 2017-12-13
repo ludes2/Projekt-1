@@ -105,7 +105,7 @@ class duration
 
     /**
      * @param $durations
-     * @param $userID
+     * @param $userId
      * @return bool
      * @internal param $values
      */
