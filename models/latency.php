@@ -101,7 +101,7 @@ class latency
 
     /**
      * @param $latencies
-     * @param $userID
+     * @param $userId
      * @return bool
      * @internal param $values
      */
@@ -110,7 +110,13 @@ class latency
     {
 
         $db = db::getInstance();
-        $stmt = $db->prepare("INSERT INTO projekt1.latencies (latencies, user_id) VALUES (?, ?)");
+
+        $result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
+        $row = $result->fetch_assoc();
+        $idCounter = $row["dur_id"];
+
+
+        $stmt = $db->prepare("INSERT INTO projekt1.latencies (latencies, lat_id, user_id) VALUES ('$latencies', '5', '5')");
 
         /**for debugging reasons we use echo statements for this method*/
         if (!$stmt) {

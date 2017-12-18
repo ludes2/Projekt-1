@@ -107,7 +107,12 @@ class interval
     {
 
         $db = db::getInstance();
-        $stmt = $db->prepare("INSERT INTO projekt1.intervals (intervals, user_id) VALUES (?, ?)");
+
+        $result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
+        $row = $result->fetch_assoc();
+        $idCounter = $row["dur_id"];
+
+        $stmt = $db->prepare("INSERT INTO projekt1.intervals (intervals, interval_id, user_id) VALUES ('$intervals', '5', '5')");
 
         /**for debugging reasons we use echo statements for this method*/
         if (!$stmt) {
