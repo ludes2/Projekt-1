@@ -27,6 +27,13 @@ class interval_controller
         return $this->intervalModel;
     }
 
+    public function getIntervalAverage()
+    {
+        $userID = $_SESSION['userID'];
+        $jsonIntervalAverage = json_encode($this->intervalModel->calculateAverage($userID));
+        return $jsonIntervalAverage;
+    }
+
 
 
     public function saveIntervalInDB($interval)

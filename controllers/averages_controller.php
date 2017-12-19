@@ -5,10 +5,8 @@
  * Date: 12.11.2017
  * Time: 16:30
  */
-
-include "../models/duration.php";
+require_once "../models/averages.php";
 require_once "../PHP/db.php";
-//session_start();
 
 class averages_controller {
 
@@ -26,12 +24,13 @@ class averages_controller {
     /**
      * @param $averages
      */
-    public function saveAveragesInDB($averages)
+    public function saveAveragesInDB($iAverage, $lAverage, $dAverage)
     {
         $userID = $_SESSION['userID'];
-        $this->averages->insert($averages, $userID);
+        $this->averages->insertAverage($iAverage, $lAverage, $dAverage, $userID);
 
     }
+
 
     public function getAverages()
     {

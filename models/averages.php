@@ -7,12 +7,11 @@
  */
 
 require_once "../PHP/db.php";
-require_once "duration.php";
+
 
 class averages {
 
     private $av_id, $user_id, $dur_id, $av_duration, $lat_id, $av_latency, $interval_id, $av_interval;
-    private $duration;
 
     function __construct() {
         //$this->av_duration = $this->duration->calculateAverage();
@@ -104,24 +103,22 @@ class averages {
      * @param $values
      * @return bool
      */
-    public function insert($values, $userId)
+    public function insertAverage($iAverage, $lAverage, $dAverage, $userId)
     {
         $db = db::getInstance();
-        $stmt = $db->prepare("INSERT INTO projekt1.averages (av_duration, user_id) VALUES (?)");
+        $stmt = $db->prepare("INSERT INTO projekt1.averages (av_interval, av_latency, av_duration, user_id) VALUES
+ ('$iAverage', '$lAverage', '$dAverage', '$userId')");
 
         if (!$stmt) {
             echo "prepare failed: (" . $db->errno . " )" - $db->error;
         }
-        if (!$stmt->bind_param('si', $values, $userId)) {
+        if (!$stmt->bind_param('si', $iAverage, $lAverage, $dAverage, $userId)) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         if (!$stmt->execute()) {
             echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
         }
     }
-
-
-
 
     /**
      * @param $userID
@@ -131,7 +128,7 @@ class averages {
         $userID = (int) $userID;
         $averages = array();
         $result = db::doQuery(
-            "SELECT av_duration FROM projekt1.averages WHERE user_id = $userID"
+            "SELECT av_duration FROM projekt1.averages WHERE user_id = $userID ORDER BY av_id DESC LIMIT 5"
         );
         if(!$result) return null;
         while($row = $result->fetch_array()){

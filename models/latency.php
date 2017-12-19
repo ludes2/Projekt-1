@@ -111,12 +111,13 @@ class latency
 
         $db = db::getInstance();
 
-        $result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
+        /*$result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
         $row = $result->fetch_assoc();
-        $idCounter = $row["dur_id"];
+        $idCounter = $row["dur_id"];*/
 
 
-        $stmt = $db->prepare("INSERT INTO projekt1.latencies (latencies, lat_id, user_id) VALUES ('$latencies', '5', '5')");
+        $stmt = $db->prepare("INSERT INTO projekt1.latencies (latencies, user_id) VALUES (?, ?)");
+
 
         /**for debugging reasons we use echo statements for this method*/
         if (!$stmt) {
@@ -143,7 +144,7 @@ class latency
             /**get the values of each column, sum them up and divide by the length of the lastFive durations
             in this case its 5, easy to change to other value**/
             $column = array_column($lastFiveLatencies, $x);
-            $averages[] = array_sum($column) / count($lastFiveLatencies);
+            $averages[] = round(array_sum($column) / count($lastFiveLatencies));
         }
         //var_dump($averages);
         return $averages;

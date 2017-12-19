@@ -72,7 +72,7 @@ class duration
         $getDuration = array();
         $durId = (int)$durId;
         $res = db::doQuery(
-            "SELECT projekt1.durations.durations FROM projekt1.durations WHERE dur_id = $durId"
+            "SELECT durations FROM projekt1.durations WHERE dur_id = $durId"
         );
         if (!$res) return null;
         while ($duration = $res->fetch_array()) {
@@ -87,6 +87,14 @@ class duration
             "SELECT projekt1.durations.dur_id FROM projekt1.durations ORDER BY dur_id DESC LIMIT 1"
         );
         if (!$res) return null;
+    }
+
+    public function sumDurationID() {
+
+        $db = db::getInstance();
+        $result = $db->query("SELECT COUNT(dur_id) FROM projekt1.durations;");
+        $row = $result->fetch_assoc();
+        return $row;
     }
 
 
@@ -141,7 +149,7 @@ class duration
             /**get the values of each column, sum them up and divide by the length of the lastFive durations
             in this case its 5, easy to change to other value**/
             $column = array_column($lastFiveDurations, $x);
-            $averages[] = array_sum($column) / count($lastFiveDurations);
+            $averages[] = round(array_sum($column) / count($lastFiveDurations));
         }
         //var_dump($averages);
         return $averages;

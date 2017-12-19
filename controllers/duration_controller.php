@@ -7,6 +7,7 @@
  */
 
 require_once "../models/duration.php";
+require_once "../models/averages.php";
 require_once "../PHP/db.php";
 
 class duration_controller
@@ -38,6 +39,13 @@ class duration_controller
         return $this->durationModel;
     }
 
+    public function getDurationAverage()
+    {
+        $userID = $_SESSION['userID'];
+        $jsonDurationAverage = json_encode($this->durationModel->calculateAverage($userID));
+        return $jsonDurationAverage;
+    }
+
 
 
     public function saveDurationInDB($duration)
@@ -48,34 +56,23 @@ class duration_controller
     }
 
 
-
-
-    /**
-     * wandelt den Wert von compareDuration in % um
-     */
-    public function calculatePercent()
-{
-}
-
-
-    public function saveDurationAverage() {
-
-        $userID = $_SESSION['userID'];
-        $this->durationModel->calculateAverage($userID);
-
+    public function getSumDurationID() {
+        return $this->durationModel->sumDurationID();
     }
-
-
 
     public function compareDuration()
     {
-        $lastID = $this->durationModel->getLastDurationID();
+        //$average = new averages();
+        //$userID = $_SESSION['userID'];
 
-        $durationDB1 = $this->durationModel->getDurationById('5'); //Hier Average Wert
-        $durationDB2 = $this->durationModel->getDurationById('6'); //Hier Last ID
+        //$lastID = $this->durationModel->getLastDurationID();
+        //$lastAverage = $average->getDurationAverage($userID);
+
+        $durationDB1 = $this->durationModel->getDurationById('75'); //Hier Average Wert
+        $durationDB2 = $this->durationModel->getDurationById('76'); //Hier Last ID
 
 
-        $limit = 50;
+        $limit = 100;
         $percentDuration = array();
 
 

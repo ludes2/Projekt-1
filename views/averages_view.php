@@ -17,7 +17,13 @@ class averages_view
 
     public function showDurationAverages($userID){
         $averages = $this->averagesModel->getDurationAverage($userID);
-        var_dump($averages);
+        foreach ($averages as $key => $value){
+            echo "average index: " . $key . "= ";
+            for($x=0 ; $x<count($value); $x++){
+                echo $value[$x] . ", ";
+            }
+            echo "<br>";
+        }
     }
 
 }

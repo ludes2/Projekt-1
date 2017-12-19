@@ -108,11 +108,11 @@ class interval
 
         $db = db::getInstance();
 
-        $result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
+        /*$result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
         $row = $result->fetch_assoc();
-        $idCounter = $row["dur_id"];
+        $idCounter = $row["dur_id"];*/
 
-        $stmt = $db->prepare("INSERT INTO projekt1.intervals (intervals, interval_id, user_id) VALUES ('$intervals', '5', '5')");
+        $stmt = $db->prepare("INSERT INTO projekt1.intervals (intervals, user_id) VALUES (?, ?)");
 
         /**for debugging reasons we use echo statements for this method*/
         if (!$stmt) {
@@ -139,7 +139,7 @@ class interval
             /**get the values of each column, sum them up and divide by the length of the lastFive durations
             in this case its 5, easy to change to other value**/
             $column = array_column($lastFiveIntervals, $x);
-            $averages[] = array_sum($column) / count($lastFiveIntervals);
+            $averages[] = round(array_sum($column) / count($lastFiveIntervals));
         }
         //var_dump($averages);
         return $averages;

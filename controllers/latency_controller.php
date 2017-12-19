@@ -28,6 +28,14 @@ class latency_controller
     }
 
 
+    public function getLatencyAverage()
+    {
+        $userID = $_SESSION['userID'];
+        $jsonLatencyAverage = json_encode($this->latencyModel->calculateAverage($userID));
+        return $jsonLatencyAverage;
+    }
+
+
     public function saveLatencyInDB($latency)
     {
 
