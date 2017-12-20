@@ -26,36 +26,27 @@ if ($authenticated == true) {
             $intervalController->saveIntervalInDB($jsonInterval); //var_dump geht nicht in if statement
 
             $jsonLatency = $_POST['jsonLatency'];
-            $latencyController->saveLatencyInDB($jsonLatency); //var_dump geht nicht in if statement
-        }
-/*
-        if (isset($_POST['jsonInterval'])) {
-            $jsonInterval = $_POST['jsonInterval'];
-            $intervalController->saveIntervalInDB($jsonInterval); //var_dump geht nicht in if statement
-        }
+            $latencyController->saveLatencyInDB($jsonLatency); //var_dump geht nicht in if
 
-        if (isset($_POST['jsonLatency'])) {
-            $jsonLatency = $_POST['jsonLatency'];
-            $latencyController->saveLatencyInDB($jsonLatency); //var_dump geht nicht in if statement
-        }*/
 
-        if (($durationController->getSumDurationID()) > 4) { //Geit noni...obwou print_r zrichtige usgit
+            if (($durationController->getSumDurationID()) > 4) { //Geit noni...obwou print_r zrichtige usgit
 
-            $durationAverage = $durationController->getDurationAverage();
-            $intervalAverage = $intervalController->getIntervalAverage();
-            $latencyAverage = $latencyController->getLatencyAverage();
+                $durationAverage = $durationController->getDurationAverage();
+                $intervalAverage = $intervalController->getIntervalAverage();
+                $latencyAverage = $latencyController->getLatencyAverage();
 
-            $averagesController->saveAveragesInDB($intervalAverage, $latencyAverage, $durationAverage);
+                $averagesController->saveAveragesInDB($intervalAverage, $latencyAverage, $durationAverage);
 
-            if ($durationController->compareDuration() !== true || $intervalController->compareInterval() !== true ||
-                $latencyController->compareLatency() !== true) {
-                echo "False Compare";
+                if ($durationController->compareDuration() !== true || $intervalController->compareInterval() !== true ||
+                    $latencyController->compareLatency() !== true) {
+                    echo "False Compare";
+                }
+                else {
+                    header('location: http://localhost:63342/Projekt-1/views/home.php');
+                }
             }
-            else {
-                header('location: http://localhost:63342/Projekt-1/views/home.php');
-            }
-        }
 
+        }
         echo "Noch nicht 5 Einträge";
 }
 
