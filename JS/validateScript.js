@@ -71,8 +71,8 @@ function sendInputToPHP() {
                     jsonDuration: jsonDuration,
                     jsonInterval: jsonInterval,
                     jsonLatency: jsonLatency,
-                    email: email,
-                    password: password
+                    email: email.email,
+                    password: password.password
                 },
                 type: 'post',
                 dataType: 'json'
