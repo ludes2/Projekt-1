@@ -8,7 +8,7 @@
 
 require_once "../models/duration.php";
 require_once "../models/averages.php";
-require_once "../PHP/db.php";
+//require_once "../PHP/db.php";
 
 class duration_controller
 {

@@ -9,7 +9,7 @@
 
 require_once "../models/latency.php";
 require_once "../models/averages.php";
-require_once "../PHP/db.php";
+//require_once "../PHP/db.php";
 
 class latency_controller
 {

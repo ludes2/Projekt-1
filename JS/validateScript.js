@@ -57,11 +57,11 @@ function sendInputToPHP() {
     /* JSON String wird mit Hilfe von AJAX zu front_controller.php geparset */
     $.ajax({
         url: 'front_controller.php',
-        data: {jsonDuration: jsonDuration},
+        data: {jsonDuration: jsonDuration, jsonInterval: jsonInterval, jsonLatency: jsonLatency},
         type: 'post',
         dataType: 'json'
     });
-
+/*
     $.ajax({
         url: 'front_controller.php',
         data: {jsonInterval: jsonInterval},
@@ -74,7 +74,7 @@ function sendInputToPHP() {
         data: {jsonLatency: jsonLatency},
         type: 'post',
         dataType: 'json'
-    });
+    });*/
 }
 
 

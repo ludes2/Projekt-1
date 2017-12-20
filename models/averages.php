@@ -146,13 +146,12 @@ class averages {
     public function insertAverage($iAverage, $lAverage, $dAverage, $userId)
     {
         $db = db::getInstance();
-        $stmt = $db->prepare("INSERT INTO projekt1.averages (av_interval, av_latency, av_duration, user_id) VALUES
- ('$iAverage', '$lAverage', '$dAverage', '$userId')");
+        $stmt = $db->prepare("INSERT INTO projekt1.averages (av_interval, av_latency, av_duration, user_id) VALUES (?, ?, ?, ?)");
 
         if (!$stmt) {
             echo "prepare failed: (" . $db->errno . " )" - $db->error;
         }
-        if (!$stmt->bind_param('si', $iAverage, $lAverage, $dAverage, $userId)) {
+        if (!$stmt->bind_param('sssi', $iAverage, $lAverage, $dAverage, $userId)) {
             echo "Binding parameters failed: (" . $stmt->errno . ") " . $stmt->error;
         }
         if (!$stmt->execute()) {

@@ -15,15 +15,20 @@ $intervalController = new interval_controller();
 $latencyController = new latency_controller();
 $averagesController = new averages_controller();
 
-
-if ($authenticated = true) {
+if ($authenticated == true) {
 
         if (isset($_POST['jsonDuration'])) {
 
             $jsonDuration = $_POST['jsonDuration'];
             $durationController->saveDurationInDB($jsonDuration); //var_dump geht nicht in if statement
-        }
 
+            $jsonInterval = $_POST['jsonInterval'];
+            $intervalController->saveIntervalInDB($jsonInterval); //var_dump geht nicht in if statement
+
+            $jsonLatency = $_POST['jsonLatency'];
+            $latencyController->saveLatencyInDB($jsonLatency); //var_dump geht nicht in if statement
+        }
+/*
         if (isset($_POST['jsonInterval'])) {
             $jsonInterval = $_POST['jsonInterval'];
             $intervalController->saveIntervalInDB($jsonInterval); //var_dump geht nicht in if statement
@@ -32,7 +37,7 @@ if ($authenticated = true) {
         if (isset($_POST['jsonLatency'])) {
             $jsonLatency = $_POST['jsonLatency'];
             $latencyController->saveLatencyInDB($jsonLatency); //var_dump geht nicht in if statement
-        }
+        }*/
 
         if (($durationController->getSumDurationID()) > 4) { //Geit noni...obwou print_r zrichtige usgit
 
@@ -42,8 +47,8 @@ if ($authenticated = true) {
 
             $averagesController->saveAveragesInDB($intervalAverage, $latencyAverage, $durationAverage);
 
-            if ($durationController->compareDuration() != true || $intervalController->compareInterval() != true ||
-                $latencyController->compareLatency() != true) {
+            if ($durationController->compareDuration() !== true || $intervalController->compareInterval() !== true ||
+                $latencyController->compareLatency() !== true) {
                 echo "False Compare";
             }
             else {
