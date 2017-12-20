@@ -17,7 +17,7 @@ $averagesController = new averages_controller();
 
 if ($authenticated == true) {
 
-        if (isset($_POST['jsonDuration'])) {
+        if (isset($_POST['jsonDuration']) && isset($_POST['jsonInterval']) && isset($_POST['jsonLatency'])) {
 
             $jsonDuration = $_POST['jsonDuration'];
             $durationController->saveDurationInDB($jsonDuration); //var_dump geht nicht in if statement

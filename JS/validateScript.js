@@ -54,10 +54,22 @@ function sendInputToPHP() {
     var jsonLatency = JSON.stringify(saveLatency);
     var jsonInterval = JSON.stringify(saveInterval);
 
+    $(document).ready(function() {
+
+        // process the form
+        $('form').submit(function(event) {
+
+            // get the form data
+            // there are many ways to get this data using jQuery (you can use the class or id also)
+            var formData = {
+                'email'             : $('input[name=email]').val(),
+                'password'          : $('input[name=password]').val()
+            };
+
     /* JSON String wird mit Hilfe von AJAX zu front_controller.php geparset */
     $.ajax({
         url: 'front_controller.php',
-        data: {jsonDuration: jsonDuration, jsonInterval: jsonInterval, jsonLatency: jsonLatency},
+        data: {jsonDuration: jsonDuration, jsonInterval: jsonInterval, jsonLatency: jsonLatency, formData: formData},
         type: 'post',
         dataType: 'json'
     });
