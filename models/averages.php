@@ -185,7 +185,7 @@ class averages {
         $userID = (int) $userID;
         $averages = array();
         $result = db::doQuery(
-            "SELECT av_interval FROM projekt1.averages WHERE user_id = $userID"
+            "SELECT av_interval FROM projekt1.averages WHERE user_id = $userID ORDER BY av_id DESC LIMIT 5"
         );
         if(!$result) return null;
         while($row = $result->fetch_array()){
@@ -202,7 +202,7 @@ class averages {
         $userID = (int) $userID;
         $averages = array();
         $result = db::doQuery(
-            "SELECT av_latency FROM projekt1.averages WHERE user_id = $userID"
+            "SELECT av_latency FROM projekt1.averages WHERE user_id = $userID ORDER BY av_id DESC LIMIT 5"
         );
         if(!$result) return null;
         while($row = $result->fetch_array()){

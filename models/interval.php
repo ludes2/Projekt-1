@@ -49,7 +49,7 @@ class interval
     public function getLastFiveIntervalsOfUser($userId)
     {
         $lastFiveIntervals = array();
-        $userId = (int) $userId;
+        $userId = (int)$userId;
         $res = db::doQuery(
             "SELECT intervals FROM projekt1.intervals WHERE user_id = $userId ORDER BY interval_id DESC LIMIT 5"
         );

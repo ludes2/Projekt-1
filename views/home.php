@@ -64,6 +64,10 @@ $latencyController = new latency_controller();
 $latencyController->compareLatency();
 $latencyController->getLatencyPercent();
 echo "<br>";
+
+var_dump($durationController->getSumDurationID());
+
+
 ?>
 
 </body>

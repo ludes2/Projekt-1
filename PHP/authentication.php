@@ -24,11 +24,10 @@ function authenticate()
         $data = checklogin($email, $password);
         $success = $data['success'];
         $userId = $data['userID'];
-        var_dump($data); //for debugging reasons... checklogin works!!!
     }
     if ($success == true) {
         // wenn login erfolgreich, dann auf home Seite weiterleiten
-        header('location: http://localhost:63342/Projekt-1/views/home.php');
+        //header('location: http://localhost:63342/Projekt-1/views/home.php');
         $result = ['authenticated' => true, 'userID' => $userId];
         return $result;
     } else if (session_status() == PHP_SESSION_NONE) {

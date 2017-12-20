@@ -93,10 +93,12 @@ class duration
 
     public function sumDurationID() {
 
-        $db = db::getInstance();
-        $result = $db->query("SELECT COUNT(dur_id) FROM projekt1.durations;");
-        $row = $result->fetch_assoc();
-        return $row;
+        $res = db::doQuery(
+            "SELECT COUNT(dur_id) FROM projekt1.durations"
+        );
+        if (!$res) return null;
+        $count = $res->fetch_array();
+        return $count[0];
     }
 
 
