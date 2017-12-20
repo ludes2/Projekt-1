@@ -80,9 +80,11 @@ class latency
     public function getLastLatencyID() {
 
         $res = db::doQuery(
-            "SELECT projekt1.latencies.lat_id FROM projekt1.latencies ORDER BY lat_id DESC LIMIT 1"
+            "SELECT lat_id FROM projekt1.latencies ORDER BY lat_id DESC LIMIT 1"
         );
         if (!$res) return null;
+        $lastID = $res->fetch_array();
+        return $lastID[0];
     }
 
 

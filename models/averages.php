@@ -78,13 +78,53 @@ class averages {
      * @param $avId
      * @return null
      */
-    public static function getAveragesById($avId) {
-        $avId = (int) $avId;
+    public function getDurationAveragesById($avId) {
+        $getDurationAverages = array();
+        $avId = (int)$avId;
         $res = db::doQuery(
-            "SELECT * FROM projekt1.averages WHERE av_id = $avId"
+            "SELECT av_duration FROM projekt1.averages WHERE av_id = $avId"
         );
-        if(!$res) return null;
-        return $res->fetch_object(get_class());
+        if (!$res) return null;
+        while ($averages = $res->fetch_array()) {
+            $getDurationAverages = json_decode($averages['av_duration'], true);
+        }
+        return $getDurationAverages;
+    }
+
+    public function getIntervalAveragesById($avId) {
+        $getIntervalAverages = array();
+        $avId = (int)$avId;
+        $res = db::doQuery(
+            "SELECT av_interval FROM projekt1.averages WHERE av_id = $avId"
+        );
+        if (!$res) return null;
+        while ($averages = $res->fetch_array()) {
+            $getIntervalAverages = json_decode($averages['av_interval'], true);
+        }
+        return $getIntervalAverages;
+    }
+
+    public function getLatencyAveragesById($avId) {
+        $getLatencyAverages = array();
+        $avId = (int)$avId;
+        $res = db::doQuery(
+            "SELECT av_latency FROM projekt1.averages WHERE av_id = $avId"
+        );
+        if (!$res) return null;
+        while ($averages = $res->fetch_array()) {
+            $getLatencyAverages = json_decode($averages['av_latency'], true);
+        }
+        return $getLatencyAverages;
+    }
+
+    public function getLastAverageID() {
+
+        $res = db::doQuery(
+            "SELECT av_id FROM projekt1.averages ORDER BY av_id DESC LIMIT 1"
+        );
+        if (!$res) return null;
+        $lastID = $res->fetch_array();
+        return $lastID[0];
     }
 
     /**

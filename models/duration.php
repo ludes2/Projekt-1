@@ -84,9 +84,11 @@ class duration
     public function getLastDurationID() {
 
         $res = db::doQuery(
-            "SELECT projekt1.durations.dur_id FROM projekt1.durations ORDER BY dur_id DESC LIMIT 1"
+            "SELECT dur_id FROM projekt1.durations ORDER BY dur_id DESC LIMIT 1"
         );
         if (!$res) return null;
+        $lastID = $res->fetch_array();
+        return $lastID[0];
     }
 
     public function sumDurationID() {

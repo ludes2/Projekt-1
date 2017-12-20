@@ -16,6 +16,7 @@ class duration_controller
 
 
     private $durationModel;
+    private $averageModel;
 
 
 //    /**
@@ -31,6 +32,7 @@ class duration_controller
     function __construct()
     {
         $this->durationModel = new duration();
+        $this->averageModel = new averages();
     }
 
 
@@ -62,14 +64,12 @@ class duration_controller
 
     public function compareDuration()
     {
-        //$average = new averages();
-        //$userID = $_SESSION['userID'];
 
-        //$lastID = $this->durationModel->getLastDurationID();
-        //$lastAverage = $average->getDurationAverage($userID);
+        $lastID = $this->durationModel->getLastDurationID();
+        $lastAverage = $this->averageModel->getLastAverageID();
 
-        $durationDB1 = $this->durationModel->getDurationById('75'); //Hier Average Wert
-        $durationDB2 = $this->durationModel->getDurationById('76'); //Hier Last ID
+        $durationDB1 = $this->averageModel->getDurationAveragesById($lastAverage);
+        $durationDB2 = $this->durationModel->getDurationById($lastID); //Hier Last ID
 
 
         $limit = 100;

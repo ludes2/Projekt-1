@@ -8,17 +8,20 @@
 
 
 require_once "../models/latency.php";
+require_once "../models/averages.php";
 require_once "../PHP/db.php";
 
 class latency_controller
 {
 
     private $latencyModel;
+    private $averageModel;
 
 
     function __construct()
     {
         $this->latencyModel = new latency();
+        $this->averageModel = new averages();
     }
 
 
@@ -66,16 +69,17 @@ class latency_controller
     public function compareLatency()
     {
         $lastID = $this->latencyModel->getLastLatencyID();
+        $lastAverage = $this->averageModel->getLastAverageID();
 
-        $latencyDB1 = $this->latencyModel->getLatencyById('5'); //Hier Average Wert
-        $latencyDB2 = $this->latencyModel->getLatencyById('6'); //Hier Last ID
+        $latencyDB1 = $this->averageModel->getLatencyAveragesById($lastAverage);
+        $latencyDB2 = $this->latencyModel->getLatencyById($lastID);
 
 
         $limit = 50;
         $percentLatency = array();
 
 
-        for ($i = 0; $i < sizeof($latencyDB1); $i++) {
+        for ($i = 1; $i < sizeof($latencyDB1); $i++) {
 
             if (abs($latencyDB2[$i] - $latencyDB1[$i]) > $limit) {
                 return false;

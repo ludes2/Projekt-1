@@ -7,18 +7,20 @@
  */
 
 require_once "../models/interval.php";
+require_once "../models/averages.php";
 require_once "../PHP/db.php";
 
 class interval_controller
 {
 
     private $intervalModel;
-
+    private $averageModel;
 
 
     function __construct()
     {
         $this->intervalModel = new interval();
+        $this->averageModel = new averages();
     }
 
 
@@ -67,16 +69,17 @@ class interval_controller
     public function compareInterval()
     {
         $lastID = $this->intervalModel->getLastIntervalID();
+        $lastAverage = $this->averageModel->getLastAverageID();
 
-        $intervalDB1 = $this->intervalModel->getIntervalById('5'); //Hier Average Wert
-        $intervalDB2 = $this->intervalModel->getIntervalById('6'); //Hier Last ID
+        $intervalDB1 = $this->averageModel->getIntervalAveragesById($lastAverage);
+        $intervalDB2 = abs($this->intervalModel->getIntervalById($lastID)); //abs weil - Werte möglich sind
 
 
-        $limit = 50;
+        $limit = 100;
         $percentInterval = array();
 
 
-        for ($i = 0; $i < sizeof($intervalDB1); $i++) {
+        for ($i = 1; $i < sizeof($intervalDB1); $i++) {
 
             if (abs($intervalDB2[$i] - $intervalDB1[$i]) > $limit) {
                 return false;

@@ -83,9 +83,11 @@ class interval
     public function getLastIntervalID() {
 
         $res = db::doQuery(
-            "SELECT projekt1.intervals.interval_id FROM projekt1.intervals ORDER BY interval_id DESC LIMIT 1"
+            "SELECT interval_id FROM projekt1.intervals ORDER BY interval_id DESC LIMIT 1"
         );
         if (!$res) return null;
+        $lastID = $res->fetch_array();
+        return $lastID[0];
     }
 
 
