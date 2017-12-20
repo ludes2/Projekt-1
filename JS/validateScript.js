@@ -57,36 +57,28 @@ function sendInputToPHP() {
     $(document).ready(function() {
 
         // process the form
-        $('form').submit(function(event) {
+        $('form').submit(function (event) {
 
             // get the form data
             // there are many ways to get this data using jQuery (you can use the class or id also)
-            var formData = {
-                'email'             : $('input[name=email]').val(),
-                'password'          : $('input[name=password]').val()
-            };
+            var email = {'email': $('input[name=email]').val()};
+            var password = {'password': $('input[name=password]').val()};
 
-    /* JSON String wird mit Hilfe von AJAX zu front_controller.php geparset */
-    $.ajax({
-        url: 'front_controller.php',
-        data: {jsonDuration: jsonDuration, jsonInterval: jsonInterval, jsonLatency: jsonLatency, formData: formData},
-        type: 'post',
-        dataType: 'json'
+            /* JSON String wird mit Hilfe von AJAX zu front_controller.php geparset */
+            $.ajax({
+                url: 'front_controller.php',
+                data: {
+                    jsonDuration: jsonDuration,
+                    jsonInterval: jsonInterval,
+                    jsonLatency: jsonLatency,
+                    email: email,
+                    password: password
+                },
+                type: 'post',
+                dataType: 'json'
+            });
+        });
     });
-/*
-    $.ajax({
-        url: 'front_controller.php',
-        data: {jsonInterval: jsonInterval},
-        type: 'post',
-        dataType: 'json'
-    });
-
-    $.ajax({
-        url: 'front_controller.php',
-        data: {jsonLatency: jsonLatency},
-        type: 'post',
-        dataType: 'json'
-    });*/
 }
 
 
