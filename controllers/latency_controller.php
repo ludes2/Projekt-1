@@ -75,7 +75,7 @@ class latency_controller
         $latencyDB2 = $this->latencyModel->getLatencyById($lastID);
 
 
-        $limit = 50;
+        $limit = 100;
         $percentLatency = array();
 
 

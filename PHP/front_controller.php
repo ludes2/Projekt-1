@@ -36,14 +36,15 @@ if ($authenticated == true) {
                 $latencyAverage = $latencyController->getLatencyAverage();
 
                 $averagesController->saveAveragesInDB($intervalAverage, $latencyAverage, $durationAverage);
+            }
 
-                if ($durationController->compareDuration() !== true || $intervalController->compareInterval() !== true ||
-                    $latencyController->compareLatency() !== true) {
-                    echo "False Compare";
-                }
-                else {
-                    header('location: http://localhost:63342/Projekt-1/views/home.php');
-                }
+            if ($durationController->compareDuration() == true && $intervalController->compareInterval() == true &&
+                $latencyController->compareLatency() == true) {
+                //header('location: http://localhost:63342/Projekt-1/views/home.php');
+                echo "Compare richtig";
+            }
+            else {
+                echo "False Compare";
             }
 
         }
