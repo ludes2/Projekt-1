@@ -6,7 +6,6 @@
  * Time: 16:30
  */
 require_once "../models/averages.php";
-require_once "../PHP/db.php";
 
 class averages_controller {
 
@@ -14,7 +13,7 @@ class averages_controller {
 
     /**
      * averages_controller constructor.
-     * @param averages $averages
+     * @param averages
      */
     function __construct() {
         $this->averages =  new averages();
@@ -22,13 +21,14 @@ class averages_controller {
 
 
     /**
-     * @param $averages
+     * @param iAverages
+     * @param lAverages
+     * @param dAverages
      */
     public function saveAveragesInDB($iAverage, $lAverage, $dAverage)
     {
         $userID = $_SESSION['userID'];
         $this->averages->insertAverage($iAverage, $lAverage, $dAverage, $userID);
-
     }
 
 
@@ -36,9 +36,4 @@ class averages_controller {
     {
         return $this->averages;
     }
-
-
-
-
-
 }
