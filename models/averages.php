@@ -74,6 +74,48 @@ class averages {
         return $this->av_interval;
     }
 
+    public function getLastFiveDurationAveragesOfUser($userId)
+    {
+        $lastFiveAverages = array();
+        $userId = (int)$userId;
+        $res = db::doQuery(
+            "SELECT av_duration FROM projekt1.averages WHERE user_id = $userId ORDER BY av_id DESC LIMIT 5"
+        );
+        if (!$res) return null;
+        while ($averages = $res->fetch_array()) {
+            $lastFiveAverages[] = json_decode($averages['av_duration'], true); //Wäre doppleter Array
+        }
+        return $lastFiveAverages;
+    }
+
+    public function getLastFiveIntervalAveragesOfUser($userId)
+    {
+        $lastFiveAverages = array();
+        $userId = (int)$userId;
+        $res = db::doQuery(
+            "SELECT av_interval FROM projekt1.averages WHERE user_id = $userId ORDER BY av_id DESC LIMIT 5"
+        );
+        if (!$res) return null;
+        while ($averages = $res->fetch_array()) {
+            $lastFiveAverages[] = json_decode($averages['av_interval'], true); //Wäre doppleter Array
+        }
+        return $lastFiveAverages;
+    }
+
+    public function getLastFiveLatencyAveragesOfUser($userId)
+    {
+        $lastFiveAverages = array();
+        $userId = (int)$userId;
+        $res = db::doQuery(
+            "SELECT av_latency FROM projekt1.averages WHERE user_id = $userId ORDER BY av_id DESC LIMIT 5"
+        );
+        if (!$res) return null;
+        while ($averages = $res->fetch_array()) {
+            $lastFiveAverages[] = json_decode($averages['av_latency'], true); //Wäre doppleter Array
+        }
+        return $lastFiveAverages;
+    }
+
     /**
      * @param $avId
      * @return null

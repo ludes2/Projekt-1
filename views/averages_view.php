@@ -15,10 +15,32 @@ class averages_view
         $this->averagesModel = $averages_model;
     }
 
-    public function showDurationAverages($userID){
-        $averages = $this->averagesModel->getDurationAverage($userID);
+    public function showLastFiveDurationAverages($userID){
+        $averages = $this->averagesModel->getLastFiveDurationAveragesOfUser($userID);
         foreach ($averages as $key => $value){
-            echo "average index: " . $key . "= ";
+            echo "Duration average index: " . $key . "= ";
+            for($x=0 ; $x<count($value); $x++){
+                echo $value[$x] . ", ";
+            }
+            echo "<br>";
+        }
+    }
+
+    public function showLastFiveIntervalAverages($userID){
+        $averages = $this->averagesModel->getLastFiveIntervalAveragesOfUser($userID);
+        foreach ($averages as $key => $value){
+            echo "Interval average index: " . $key . "= ";
+            for($x=0 ; $x<count($value); $x++){
+                echo $value[$x] . ", ";
+            }
+            echo "<br>";
+        }
+    }
+
+    public function showLastFiveLatencyAverages($userID){
+        $averages = $this->averagesModel->getLastFiveLatencyAveragesOfUser($userID);
+        foreach ($averages as $key => $value){
+            echo "Latency average index: " . $key . "= ";
             for($x=0 ; $x<count($value); $x++){
                 echo $value[$x] . ", ";
             }

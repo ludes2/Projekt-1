@@ -24,24 +24,17 @@ include_once "../controllers/duration_controller.php";
 include_once "../controllers/interval_controller.php";
 include_once "../controllers/latency_controller.php";
 
-echo "<b>Last five durations: </b>" . "<br>";
-
 $durationModel = new duration();
 $durationView = new duration_view($durationModel);
-$userID = $_SESSION['userID'];
-$durationView->showLastFiveDurations($userID);
-echo "<br>";
-
-
-echo "<b>Duration averages: </b>" . "<br>";
+$intervalModel = new interval();
+$intervalView = new interval_view($intervalModel);
+$latencyModel = new latency();
+$latencyView = new latency_view($latencyModel);
 $averageModel = new averages();
-$durationView = new averages_view($averageModel);
-$userID = $_SESSION['userID'];
-$durationView->showDurationAverages($userID);
-echo "<br>";
-echo "<br>";
+$averageView = new averages_view($averageModel);
 
-echo "<b>E-Mail: </b>" . ($_SESSION['userMail']) . "<br>";
+
+echo "<b>E-Mail: </b>" . ($_SESSION['email']) . "<br>";
 echo "<br>";
 echo "<b>UserID: </b>" . ($_SESSION['userID']) . "<br>";
 echo "<br>";
@@ -64,9 +57,44 @@ $latencyController = new latency_controller();
 $latencyController->compareLatency();
 $latencyController->getLatencyPercent();
 echo "<br>";
+echo "<br>";
+echo "<br>";
 
-var_dump($durationController->getSumDurationID());
 
+echo "<b>Last five durations: </b>" . "<br>";
+$userID = $_SESSION['userID'];
+$durationView->showLastFiveDurations($userID);
+echo "<br>";
+
+echo "<b>Duration averages: </b>" . "<br>";
+$userID = $_SESSION['userID'];
+$averageView->showLastFiveDurationAverages($userID);
+echo "<br>";
+echo "<br>";
+
+
+echo "<b>Last five intervals: </b>" . "<br>";
+$userID = $_SESSION['userID'];
+$intervalView->showLastFiveIntervals($userID);
+echo "<br>";
+
+echo "<b>Interval averages: </b>" . "<br>";
+$userID = $_SESSION['userID'];
+$averageView->showLastFiveIntervalAverages($userID);
+echo "<br>";
+echo "<br>";
+
+
+echo "<b>Last five latencies: </b>" . "<br>";
+$userID = $_SESSION['userID'];
+$latencyView->showLastFiveLatencies($userID);
+echo "<br>";
+
+echo "<b>Latency averages: </b>" . "<br>";
+$userID = $_SESSION['userID'];
+$averageView->showLastFiveLatencyAverages($userID);
+echo "<br>";
+echo "<br>";
 
 ?>
 

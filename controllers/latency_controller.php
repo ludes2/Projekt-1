@@ -42,7 +42,6 @@ class latency_controller
     public function saveLatencyInDB($latency)
     {
 
-        session_start();
         $userID = $_SESSION['userID'];
         $this->latencyModel->insert($latency, $userID);
     }

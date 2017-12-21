@@ -41,7 +41,6 @@ class interval_controller
     public function saveIntervalInDB($interval)
     {
 
-        session_start();
         $userID = $_SESSION['userID'];
         $this->intervalModel->insert($interval, $userID);
     }
@@ -72,7 +71,7 @@ class interval_controller
         $lastAverage = $this->averageModel->getLastAverageID();
 
         $intervalDB1 = $this->averageModel->getIntervalAveragesById($lastAverage);
-        $intervalDB2 = abs($this->intervalModel->getIntervalById($lastID)); //abs weil - Werte möglich sind
+        $intervalDB2 = $this->intervalModel->getIntervalById($lastID);
 
 
         $limit = 100;
@@ -81,17 +80,17 @@ class interval_controller
 
         for ($i = 1; $i < sizeof($intervalDB1); $i++) {
 
-            if (abs($intervalDB2[$i] - $intervalDB1[$i]) > $limit) {
+            if (abs($intervalDB2[$i]) - abs($intervalDB1[$i]) > $limit) {
                 return false;
             }
 
             /* Werte in % umwandeln */
-            if ($intervalDB2[$i] > $intervalDB1[$i]) {
-                $percentInterval[$i] = (($intervalDB1[$i] * 100) / $intervalDB2[$i]);
+            if (abs($intervalDB2[$i]) > abs($intervalDB1[$i])) {
+                $percentInterval[$i] = (abs($intervalDB1[$i]) * 100 / abs($intervalDB2[$i]));
             }
 
-            if ($intervalDB2[$i] < $intervalDB1[$i]) {
-                $percentInterval[$i] = (($intervalDB2[$i] * 100) / $intervalDB1[$i]);
+            if (abs($intervalDB2[$i]) < abs($intervalDB1[$i])) {
+                $percentInterval[$i] = (abs($intervalDB2[$i]) * 100 / abs($intervalDB1[$i]));
             }
         }
 
@@ -104,6 +103,6 @@ class interval_controller
 
     public function getIntervalPercent() {
         global $result;
-        print_r($result . "%");
+        print_r($result . " %");
     }
 }
