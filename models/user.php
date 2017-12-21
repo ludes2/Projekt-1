@@ -119,7 +119,4 @@ class user {
         if(!$success) return false;
         return $stmt->execute();
     }
-
-
-
 }

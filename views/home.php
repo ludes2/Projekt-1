@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Benutzer-Profiling</title>
+    <title>User Profiling</title>
+    <link rel='stylesheet' href='../CSS/home.css'/>
 </head>
 <body>
 <h1>Home UserInputs</h1>

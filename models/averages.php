@@ -14,7 +14,6 @@ class averages {
     private $av_id, $user_id, $dur_id, $av_duration, $lat_id, $av_latency, $interval_id, $av_interval;
 
     function __construct() {
-        //$this->av_duration = $this->duration->calculateAverage();
 
     }
 
@@ -182,8 +181,13 @@ class averages {
     }
 
     /**
-     * @param $values
+     * @param $iAverage
+     * @param $lAverage
+     * @param $dAverage
+     * @param $userId
      * @return bool
+     *
+     * Insert IntervalAverage, LatencyAverage, DurationAverage and UserID in DB
      */
     public function insertAverage($iAverage, $lAverage, $dAverage, $userId)
     {
@@ -251,8 +255,4 @@ class averages {
         }
         return $averages;
     }
-
-
-
-
 }

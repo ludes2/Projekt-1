@@ -6,36 +6,33 @@
  * Time: 15:39
  */
 
-include_once "../PHP/db.php";
-class latency
-{
+require_once "../PHP/db.php";
+
+class latency {
+
     private $lat_id, $user_id, $latencies;
 
-    public function __construct()
-    {
+    public function __construct() {
     }
 
     /**
      * @return mixed
      */
-    public function getLatId()
-    {
+    public function getLatId() {
         return $this->lat_id;
     }
 
     /**
      * @return mixed
      */
-    public function getUserId()
-    {
+    public function getUserId() {
         return $this->user_id;
     }
 
     /**
      * @return mixed
      */
-    public function getLatencies()
-    {
+    public function getLatencies() {
         return $this->latencies;
     }
 
@@ -43,8 +40,7 @@ class latency
      * @param $userId
      * @return array|null
      */
-    public function getLastFiveLatenciesOfUser($userId)
-    {
+    public function getLastFiveLatenciesOfUser($userId) {
         $lastFiveLatencies = array();
         $userId = (int) $userId;
         $res = db::doQuery(
@@ -62,8 +58,7 @@ class latency
      * @param $latId
      * @return null
      */
-    public function getLatencyById($latId)
-    {
+    public function getLatencyById($latId) {
         $getLatency = array();
         $latId = (int)$latId;
         $res = db::doQuery(
@@ -92,8 +87,7 @@ class latency
      * @param $latId
      * @return bool
      */
-    public static function delete($latId)
-    {
+    public static function delete($latId) {
         $latId = (int)$latId;
         $res = db::doQuery(
             "DELETE FROM projekt1.latencies WHERE lat_id = $latId"
@@ -108,15 +102,9 @@ class latency
      * @internal param $values
      */
 
-    public function insert($latencies, $userId)
-    {
+    public function insert($latencies, $userId) {
 
         $db = db::getInstance();
-
-        /*$result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
-        $row = $result->fetch_assoc();
-        $idCounter = $row["dur_id"];*/
-
 
         $stmt = $db->prepare("INSERT INTO projekt1.latencies (latencies, user_id) VALUES (?, ?)");
 
@@ -136,6 +124,8 @@ class latency
     /**
      * @param $userID
      * @return array
+     *
+     * Calculate the average of latency with the last 5 entries
      */
     public function calculateAverage($userID){
         $lastFiveLatencies = $this->getLastFiveLatenciesOfUser($userID);
@@ -148,9 +138,6 @@ class latency
             $column = array_column($lastFiveLatencies, $x);
             $averages[] = round(array_sum($column) / count($lastFiveLatencies));
         }
-        //var_dump($averages);
         return $averages;
     }
-
-
 }

@@ -7,39 +7,33 @@
  */
 
 require_once "../PHP/db.php";
-class duration
-{
+
+class duration {
 
     private $dur_id, $user_id, $durations;
 
-    public function __construct()
-    {
+    public function __construct() {
 
     }
-
-
 
     /**
      * @return mixed
      */
-    public function getDurId()
-    {
+    public function getDurId() {
         return $this->dur_id;
     }
 
     /**
      * @return mixed
      */
-    public function getUserId()
-    {
+    public function getUserId() {
         return $this->user_id;
     }
 
     /**
      * @return mixed
      */
-    public function getDurations()
-    {
+    public function getDurations() {
         return $this->durations;
     }
 
@@ -48,8 +42,7 @@ class duration
      * @param $userId
      * @return array|null
      */
-    public function getLastFiveDurationsOfUser($userId)
-    {
+    public function getLastFiveDurationsOfUser($userId) {
         $lastFiveDurations = array();
         $userId = (int)$userId;
         $res = db::doQuery(
@@ -67,8 +60,7 @@ class duration
      * @param $durId
      * @return null
      */
-    public function getDurationById($durId)
-    {
+    public function getDurationById($durId) {
         $getDuration = array();
         $durId = (int)$durId;
         $res = db::doQuery(
@@ -91,6 +83,9 @@ class duration
         return $lastID[0];
     }
 
+    /**
+    Count how many duration entries are in the DB
+     **/
     public function sumDurationID() {
 
         $res = db::doQuery(
@@ -106,8 +101,7 @@ class duration
      * @param $durId
      * @return bool
      */
-    public static function delete($durId)
-    {
+    public static function delete($durId) {
         $durId = (int)$durId;
         $res = db::doQuery(
             "DELETE FROM projekt1.durations WHERE dur_id = $durId"
@@ -122,8 +116,7 @@ class duration
      * @internal param $values
      */
 
-    public function insert($durations, $userId)
-    {
+    public function insert($durations, $userId) {
 
         $db = db::getInstance();
         $stmt = $db->prepare("INSERT INTO projekt1.durations (durations, user_id) VALUES (?, ?)");
@@ -143,6 +136,8 @@ class duration
     /**
      * @param $userID
      * @return array
+     *
+     * Calculate the average of durations with the last 5 entries
      */
     public function calculateAverage($userID){
         $lastFiveDurations = $this->getLastFiveDurationsOfUser($userID);
@@ -155,7 +150,6 @@ class duration
             $column = array_column($lastFiveDurations, $x);
             $averages[] = round(array_sum($column) / count($lastFiveDurations));
         }
-        //var_dump($averages);
         return $averages;
     }
 }

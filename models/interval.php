@@ -8,36 +8,31 @@
 
 require_once "../PHP/db.php";
 
-class interval
-{
+class interval {
+
     private $interval_id, $user_id, $intervals;
 
-    public function __construct()
-    {
+    public function __construct() {
     }
-
 
     /**
      * @return mixed
      */
-    public function getIntId()
-    {
+    public function getIntId() {
         return $this->interval_id;
     }
 
     /**
      * @return mixed
      */
-    public function getUserId()
-    {
+    public function getUserId() {
         return $this->user_id;
     }
 
     /**
      * @return mixed
      */
-    public function getIntervals()
-    {
+    public function getIntervals() {
         return $this->intervals;
     }
 
@@ -46,8 +41,7 @@ class interval
      * @param $userId
      * @return array|null
      */
-    public function getLastFiveIntervalsOfUser($userId)
-    {
+    public function getLastFiveIntervalsOfUser($userId) {
         $lastFiveIntervals = array();
         $userId = (int)$userId;
         $res = db::doQuery(
@@ -65,8 +59,7 @@ class interval
      * @param $intId
      * @return null
      */
-    public function getIntervalById($intId)
-    {
+    public function getIntervalById($intId) {
         $getInterval = array();
         $intId = (int)$intId;
         $res = db::doQuery(
@@ -95,8 +88,7 @@ class interval
      * @param $intId
      * @return bool
      */
-    public static function delete($intId)
-    {
+    public static function delete($intId) {
         $intId = (int)$intId;
         $res = db::doQuery(
             "DELETE FROM projekt1.intervals WHERE interval_id = $intId"
@@ -104,15 +96,13 @@ class interval
         return $res != null;
     }
 
-
-    public function insert($intervals, $userId)
-    {
+    /**
+     * @param $intervals
+     * @param $userId
+     */
+    public function insert($intervals, $userId) {
 
         $db = db::getInstance();
-
-        /*$result = $db->query("SELECT projekt1.durations.dur_id FROM projekt1.durations order by dur_id DESC;");
-        $row = $result->fetch_assoc();
-        $idCounter = $row["dur_id"];*/
 
         $stmt = $db->prepare("INSERT INTO projekt1.intervals (intervals, user_id) VALUES (?, ?)");
 
@@ -131,6 +121,8 @@ class interval
     /**
      * @param $userID
      * @return array
+     *
+     * Calculate the average of interval with the last 5 entries
      */
     public function calculateAverage($userID){
         $lastFiveIntervals = $this->getLastFiveIntervalsOfUser($userID);
@@ -143,7 +135,6 @@ class interval
             $column = array_column($lastFiveIntervals, $x);
             $averages[] = round(array_sum($column) / count($lastFiveIntervals));
         }
-        //var_dump($averages);
         return $averages;
     }
 }

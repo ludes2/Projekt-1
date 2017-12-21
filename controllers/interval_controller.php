@@ -8,51 +8,37 @@
 
 require_once "../models/interval.php";
 require_once "../models/averages.php";
-//require_once "../PHP/db.php";
 
-class interval_controller
-{
+class interval_controller {
 
     private $intervalModel;
     private $averageModel;
 
 
-    function __construct()
-    {
+    function __construct() {
+
         $this->intervalModel = new interval();
         $this->averageModel = new averages();
     }
 
 
-    public function getIntervalModel()
-    {
+    public function getIntervalModel() {
+
         return $this->intervalModel;
     }
 
-    public function getIntervalAverage()
-    {
+    public function getIntervalAverage() {
+
         $userID = $_SESSION['userID'];
         $jsonIntervalAverage = json_encode($this->intervalModel->calculateAverage($userID));
         return $jsonIntervalAverage;
     }
 
 
-
-    public function saveIntervalInDB($interval)
-    {
+    public function saveIntervalInDB($interval) {
 
         $userID = $_SESSION['userID'];
         $this->intervalModel->insert($interval, $userID);
-    }
-
-
-
-
-    /**
-     * wandelt den Wert von compareInterval in % um
-     */
-    public function calculatePercent()
-    {
     }
 
 
@@ -60,13 +46,15 @@ class interval_controller
 
         $userID = $_SESSION['userID'];
         $this->intervalModel->calculateAverage($userID);
-
     }
 
 
+    /**
+    Compare the interval between the values that the user just entered and the last average interval from the DB
+     * the limit is 100ms. So if the difference is bigger than 100 -> false
+     **/
+    public function compareInterval() {
 
-    public function compareInterval()
-    {
         $lastID = $this->intervalModel->getLastIntervalID();
         $lastAverage = $this->averageModel->getLastAverageID();
 
@@ -84,7 +72,7 @@ class interval_controller
                 return false;
             }
 
-            /* Werte in % umwandeln */
+            // Convert values to %
             if (abs($intervalDB2[$i]) > abs($intervalDB1[$i])) {
                 $percentInterval[$i] = (abs($intervalDB1[$i]) * 100 / abs($intervalDB2[$i]));
             }
@@ -94,13 +82,17 @@ class interval_controller
             }
         }
 
-        /* Summe von Array / Länge des Arrays, Gesamt % von Duration */
+        // Calculate the result in %
         $sum = array_sum($percentInterval);
         global $result;
         $result = (round($sum / sizeof($percentInterval)));
         return true;
     }
 
+
+    /**
+    Print the result from the comparison in %
+     **/
     public function getIntervalPercent() {
         global $result;
         print_r($result . " %");

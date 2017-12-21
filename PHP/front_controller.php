@@ -15,21 +15,23 @@ $latencyController = new latency_controller();
 $averagesController = new averages_controller();
 
 
+// If email and password correct go forward
 if ($authenticated == true) {
 
     if (isset($_POST['jsonDuration']) && isset($_POST['jsonInterval']) && isset($_POST['jsonLatency'])) {
 
-            $jsonDuration = $_POST['jsonDuration'];
-            $durationController->saveDurationInDB($jsonDuration); //var_dump geht nicht in if statement
+            $jsonDuration = $_POST['jsonDuration']; //Get the duration from AJAX
+            $durationController->saveDurationInDB($jsonDuration);
 
-            $jsonInterval = $_POST['jsonInterval'];
-            $intervalController->saveIntervalInDB($jsonInterval); //var_dump geht nicht in if statement
+            $jsonInterval = $_POST['jsonInterval']; //Get the interval from AJAX
+            $intervalController->saveIntervalInDB($jsonInterval);
 
-            $jsonLatency = $_POST['jsonLatency'];
-            $latencyController->saveLatencyInDB($jsonLatency); //var_dump geht nicht in if
+            $jsonLatency = $_POST['jsonLatency']; //Get the latency from AJAX
+            $latencyController->saveLatencyInDB($jsonLatency);
 
 
-        if (($durationController->getSumDurationID()) > 4) { //Geit noni...obwou print_r zrichtige usgit
+        //There must be at least 5 entries in the db to calculate and store the averages
+        if (($durationController->getSumDurationID()) > 4) {
 
                 $durationAverage = $durationController->getDurationAverage();
                 $intervalAverage = $intervalController->getIntervalAverage();
@@ -39,11 +41,12 @@ if ($authenticated == true) {
         }
     }
 
-
+    //The comparison works not until there is a db entry for averages
     if (($durationController->getSumDurationID()) > 4) {
 
         if ($durationController->compareDuration() == true && $intervalController->compareInterval() == true &&
             $latencyController->compareLatency() == true) {
+            //If comparison successful go to home.php
             header('location: http://localhost:63342/Projekt-1/views/home.php');
         } else {
             echo "False Compare";
@@ -53,10 +56,3 @@ if ($authenticated == true) {
         echo "Not 5 Entries";
     }
 }
-
-
-
-
-
-
-

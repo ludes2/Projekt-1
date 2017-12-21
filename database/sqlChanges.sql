@@ -81,6 +81,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
+
 --
 -- Indizes für die Tabelle `averages`
 --
@@ -115,6 +116,8 @@ ALTER TABLE `latencies`
 ALTER TABLE `users`
   ADD PRIMARY KEY (`user_id`),
   ADD UNIQUE KEY `email` (`email`);
+
+
 
 --
 -- AUTO_INCREMENT für Tabelle `average`

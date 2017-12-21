@@ -6,23 +6,21 @@
  * Time: 10:05
  */
 
-class latency_view
-{
-    private $latencyModel;
-    private $route;
+class latency_view {
 
-    function __construct(latency $latencyModel)
-    {
-        //$this->route = $route;
+    private $latencyModel;
+
+    function __construct(latency $latencyModel) {
+
         $this->latencyModel = $latencyModel;
     }
 
-
     /**
-     * created only for testing reasons..
      * @param $userID
+     * Used in home.php
      */
     public function showLastFiveLatencies($userID) {
+
         $lastFiveLatencies = $this->latencyModel->getLastFiveLatenciesOfUser($userID);
         foreach ($lastFiveLatencies as $key => $value){
             echo "latency index: " . $key . "= ";
@@ -31,6 +29,5 @@ class latency_view
             }
             echo "<br>";
         }
-
     }
 }

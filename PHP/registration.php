@@ -10,11 +10,12 @@ include_once "db.php";
 include_once "Validators/email_validator.php";
 include_once "Validators/password_validator.php";
 
-if(isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['sign-upPassword'], $_POST['confirmPassword'])){
+if(isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['sign-upPassword'], $_POST['confirmPassword'])) {
 
     $db = db::getInstance();
 
     $error = false;
+
     /*declare variables for User input*/
     $email = $_POST['email'];
     $password = $_POST['sign-upPassword'];
@@ -64,5 +65,4 @@ if(isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['sign-
             echo "Execution failed: (" . $stmt->errno . ") " . $stmt->error;
         }
     }
-
 }

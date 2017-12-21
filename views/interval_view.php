@@ -6,23 +6,21 @@
  * Time: 10:05
  */
 
-class interval_view
-{
-    private $intervalModel;
-    private $route;
+class interval_view {
 
-    function __construct(interval $intervalModel)
-    {
-        //$this->route = $route;
+    private $intervalModel;
+
+    function __construct(interval $intervalModel) {
+
         $this->intervalModel = $intervalModel;
     }
 
-
     /**
-     * created only for testing reasons..
      * @param $userID
+     * Used in home.php
      */
     public function showLastFiveIntervals($userID) {
+
         $lastFiveIntervals = $this->intervalModel->getLastFiveIntervalsOfUser($userID);
         foreach ($lastFiveIntervals as $key => $value){
             echo "interval index: " . $key . "= ";
@@ -31,6 +29,5 @@ class interval_view
             }
             echo "<br>";
         }
-
     }
 }

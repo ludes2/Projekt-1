@@ -8,62 +8,54 @@
 
 require_once "../models/duration.php";
 require_once "../models/averages.php";
-//require_once "../PHP/db.php";
 
-class duration_controller
-{
-
-
+class duration_controller {
 
     private $durationModel;
     private $averageModel;
 
+    function __construct() {
 
-//    /**
-//     * duration_controller constructor.
-//     * @param duration $durationModel
-//     */
-//    function __construct(duration $durationModel)
-//    {
-//        $this->durationModel = $durationModel;
-//    }
-
-
-    function __construct()
-    {
         $this->durationModel = new duration();
         $this->averageModel = new averages();
     }
 
 
-    public function getDurationModel()
-    {
+    public function getDurationModel() {
+
         return $this->durationModel;
     }
 
-    public function getDurationAverage()
-    {
+
+    public function getDurationAverage() {
+
         $userID = $_SESSION['userID'];
         $jsonDurationAverage = json_encode($this->durationModel->calculateAverage($userID));
         return $jsonDurationAverage;
     }
 
 
-
-    public function saveDurationInDB($duration)
-    {
+    public function saveDurationInDB($duration) {
 
         $userID = $_SESSION['userID'];
         $this->durationModel->insert($duration, $userID);
     }
 
 
+    /**
+     Count how many duration entries are in the DB
+     **/
     public function getSumDurationID() {
+
         return $this->durationModel->sumDurationID();
     }
 
-    public function compareDuration()
-    {
+
+    /**
+    Compare the duration between the values that the user just entered and the last average duration from the DB
+     * the limit is 100ms. So if the difference is bigger than 100 -> false
+     **/
+    public function compareDuration() {
 
         $lastID = $this->durationModel->getLastDurationID();
         $lastAverage = $this->averageModel->getLastAverageID();
@@ -82,7 +74,7 @@ class duration_controller
                 return false;
             }
 
-            /* Werte in % umwandeln */
+            // Convert values to %
             if ($durationDB2[$i] > $durationDB1[$i]) {
                 $percentDuration[$i] = (($durationDB1[$i] * 100) / $durationDB2[$i]);
             }
@@ -92,13 +84,17 @@ class duration_controller
             }
         }
 
-        /* Summe von Array / Länge des Arrays, Gesamt % von Duration */
+        // Calculate the result in %
         $sum = array_sum($percentDuration);
         global $result;
         $result = (round($sum / sizeof($percentDuration)));
         return true;
     }
 
+
+    /**
+    Print the result from the comparison in %
+     **/
     public function getDurationPercent() {
         global $result;
         print_r($result . "%");

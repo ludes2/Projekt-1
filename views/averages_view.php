@@ -6,16 +6,18 @@
  * Time: 19:43
  */
 
-class averages_view
-{
+class averages_view {
+
     private $averagesModel;
 
-    function __construct(averages $averages_model)
-    {
+    function __construct(averages $averages_model) {
+
         $this->averagesModel = $averages_model;
     }
 
-    public function showLastFiveDurationAverages($userID){
+    //Used in home.php
+    public function showLastFiveDurationAverages($userID) {
+
         $averages = $this->averagesModel->getLastFiveDurationAveragesOfUser($userID);
         foreach ($averages as $key => $value){
             echo "Duration average index: " . $key . "= ";
@@ -26,7 +28,9 @@ class averages_view
         }
     }
 
-    public function showLastFiveIntervalAverages($userID){
+    //Used in home.php
+    public function showLastFiveIntervalAverages($userID) {
+
         $averages = $this->averagesModel->getLastFiveIntervalAveragesOfUser($userID);
         foreach ($averages as $key => $value){
             echo "Interval average index: " . $key . "= ";
@@ -37,7 +41,9 @@ class averages_view
         }
     }
 
-    public function showLastFiveLatencyAverages($userID){
+    //Used in home.php
+    public function showLastFiveLatencyAverages($userID) {
+
         $averages = $this->averagesModel->getLastFiveLatencyAveragesOfUser($userID);
         foreach ($averages as $key => $value){
             echo "Latency average index: " . $key . "= ";
@@ -47,5 +53,4 @@ class averages_view
             echo "<br>";
         }
     }
-
 }

@@ -16,6 +16,7 @@ class averages_controller {
      * @param averages
      */
     function __construct() {
+
         $this->averages =  new averages();
     }
 
@@ -24,16 +25,18 @@ class averages_controller {
      * @param iAverages
      * @param lAverages
      * @param dAverages
+     *
+     * Saves averages from Interval, Latency and Duration in DB
      */
-    public function saveAveragesInDB($iAverage, $lAverage, $dAverage)
-    {
+    public function saveAveragesInDB($iAverage, $lAverage, $dAverage) {
+
         $userID = $_SESSION['userID'];
         $this->averages->insertAverage($iAverage, $lAverage, $dAverage, $userID);
     }
 
 
-    public function getAverages()
-    {
+    public function getAverages() {
+
         return $this->averages;
     }
 }

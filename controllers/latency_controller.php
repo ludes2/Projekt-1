@@ -6,53 +6,41 @@
  * Time: 09:41
  */
 
-
 require_once "../models/latency.php";
 require_once "../models/averages.php";
-//require_once "../PHP/db.php";
 
-class latency_controller
-{
+class latency_controller {
 
     private $latencyModel;
     private $averageModel;
 
 
-    function __construct()
-    {
+    function __construct() {
+
         $this->latencyModel = new latency();
         $this->averageModel = new averages();
     }
 
 
-    public function getLatencyModel()
-    {
+    public function getLatencyModel() {
+
         return $this->latencyModel;
     }
 
 
-    public function getLatencyAverage()
-    {
+    public function getLatencyAverage() {
+
         $userID = $_SESSION['userID'];
         $jsonLatencyAverage = json_encode($this->latencyModel->calculateAverage($userID));
         return $jsonLatencyAverage;
     }
 
 
-    public function saveLatencyInDB($latency)
-    {
+    public function saveLatencyInDB($latency) {
+
 
         $userID = $_SESSION['userID'];
         $this->latencyModel->insert($latency, $userID);
-    }
-
-
-
-    /**
-     * wandelt den Wert von compareLatency in % um
-     */
-    public function calculatePercent()
-    {
     }
 
 
@@ -60,13 +48,15 @@ class latency_controller
 
         $userID = $_SESSION['userID'];
         $this->latencyModel->calculateAverage($userID);
-
     }
 
 
+    /**
+    Compare the latency between the values that the user just entered and the last average latency from the DB
+     * the limit is 100ms. So if the difference is bigger than 100 -> false
+     **/
+    public function compareLatency() {
 
-    public function compareLatency()
-    {
         $lastID = $this->latencyModel->getLastLatencyID();
         $lastAverage = $this->averageModel->getLastAverageID();
 
@@ -84,7 +74,7 @@ class latency_controller
                 return false;
             }
 
-            /* Werte in % umwandeln */
+            // Convert values to %
             if ($latencyDB2[$i] > $latencyDB1[$i]) {
                 $percentLatency[$i] = (($latencyDB1[$i] * 100) / $latencyDB2[$i]);
             }
@@ -94,13 +84,16 @@ class latency_controller
             }
         }
 
-        /* Summe von Array / Länge des Arrays, Gesamt % von Duration */
+        // Calculate the result in %
         $sum = array_sum($percentLatency);
         global $result;
         $result = (round($sum / sizeof($percentLatency)));
         return true;
     }
 
+    /**
+    Print the result from the comparison in %
+     **/
     public function getLatencyPercent() {
         global $result;
         print_r($result . "%");

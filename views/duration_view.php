@@ -6,23 +6,21 @@
  * Time: 14:57
  */
 
-class duration_view
-{
-    private $durationModel;
-    private $route;
+class duration_view {
 
-    function __construct(duration $durationModel)
-    {
-        //$this->route = $route;
+    private $durationModel;
+
+    function __construct(duration $durationModel) {
+
         $this->durationModel = $durationModel;
     }
 
-
     /**
-     * created only for testing reasons..
      * @param $userID
+     * Used in home.php
      */
     public function showLastFiveDurations($userID) {
+
         $lastFiveDurations = $this->durationModel->getLastFiveDurationsOfUser($userID);
         foreach ($lastFiveDurations as $key => $value){
             echo "duration index: " . $key . "= ";
@@ -31,6 +29,5 @@ class duration_view
             }
             echo "<br>";
         }
-
     }
 }

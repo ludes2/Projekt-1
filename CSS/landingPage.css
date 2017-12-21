@@ -1,14 +1,10 @@
 body, html {
     margin: 0;
     height: 100%;
-    background: url('lloonsBG.jpg') no-repeat center center fixed;
+    background: url('../CSS/img/balloonsBG.jpg') no-repeat center center fixed;
     background-size: cover;
-    background-size: cover;
-    background-size: cover;
-    background-size: cover;
+    font-family: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
 }
-
-
 
 .header{
     color: black;
@@ -24,8 +20,6 @@ h1{
     justify-content: center;
     align-items: stretch;
     align-content: center;
-
-
 }
 
 .login {
