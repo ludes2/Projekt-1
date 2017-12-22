@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <?php session_start(); ?>
     <title>User Profiling</title>
     <link rel='stylesheet' href='../CSS/home.css'/>
 </head>
@@ -9,7 +10,7 @@
 <h1>Home UserInputs</h1>
 <?php
 
-session_start();
+
 
 include_once "../models/duration.php";
 include_once "../models/interval.php";

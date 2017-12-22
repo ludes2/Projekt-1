@@ -30,6 +30,7 @@ function checklogin($email, $password) {
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
     $_SESSION['userID'] = $row['user_id'];
+    $_SESSION['email'] = $row['email'];
 
     /*check if user exists*/
     if (!$row_count = $result->num_rows == 1) {
