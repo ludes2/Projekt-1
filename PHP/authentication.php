@@ -14,22 +14,26 @@ require_once "login.php";
 function authenticate() {
 
     if (isset($_POST['email']) && isset($_POST['password'])) {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
 
         $email = $_POST['email'];
         $password = $_POST['password'];
 
         $data = checklogin($email, $password);
         $success = $data['success'];
-        $userId = $data['userID'];
-    }
-    if ($success == true) {
+        $userID = $data['userID'];
 
-        $result = ['authenticated' => true, 'userID' => $userId];
+    }
+
+    if ($success == true) {
+        $result = ['authenticated' => true, 'userID' => $userID];
         return $result;
-    } else if (session_status() == PHP_SESSION_NONE) {
-        session_start();
     } else {
         $result = array ('authenticated' => false);
         return $result;
     }
+
 }
+
