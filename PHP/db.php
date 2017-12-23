@@ -6,6 +6,10 @@
  * Time: 14:51
  */
 
+/**
+ * a singleton calss for a DB connection.
+ * Class db
+ */
 class db extends mysqli{
     const HOST="localhost", USER="root", PW="", DB_NAME="projekt1";
 
@@ -33,6 +37,10 @@ class db extends mysqli{
     }
 
 
+    /**
+     * @param $sql
+     * @return mixed
+     */
     public static function doQuery($sql) {
         return self::getInstance()->query($sql);
     }

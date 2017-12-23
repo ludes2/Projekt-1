@@ -10,6 +10,12 @@ include_once "db.php";
 include_once "Validators/email_validator.php";
 include_once "Validators/password_validator.php";
 
+/**
+ * User information are validated with the appropriate validators. if the information are correct and doesn't
+ * exists already in the database, the information is stored in the DB. The password is hashed with the
+ * 'PASSWORD_DEFAULT' Algorithm.
+ */
+
 if(isset($_POST['firstname'], $_POST['lastname'], $_POST['email'], $_POST['sign-upPassword'], $_POST['confirmPassword'])) {
 
     $db = db::getInstance();

@@ -37,6 +37,7 @@ class latency {
     }
 
     /**
+     * returns the last 5 latency's as a 2D Array, from the specified user
      * @param $userId
      * @return array|null
      */
@@ -72,6 +73,9 @@ class latency {
     }
 
 
+    /**
+     * @return null
+     */
     public function getLastLatencyID() {
 
         $res = db::doQuery(

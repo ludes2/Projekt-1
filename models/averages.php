@@ -73,6 +73,11 @@ class averages {
         return $this->av_interval;
     }
 
+    /**
+     * returns the last 5 durationAverages as a 2D Array, from the specified user
+     * @param $userId
+     * @return array|null
+     */
     public function getLastFiveDurationAveragesOfUser($userId)
     {
         $lastFiveAverages = array();
@@ -87,6 +92,11 @@ class averages {
         return $lastFiveAverages;
     }
 
+    /**
+     * returns the last 5 IntervalAverages as a 2D Array, from the specified user
+     * @param $userId
+     * @return array|null
+     */
     public function getLastFiveIntervalAveragesOfUser($userId)
     {
         $lastFiveAverages = array();
@@ -101,6 +111,11 @@ class averages {
         return $lastFiveAverages;
     }
 
+    /**
+     * returns the last 5 latencyAverage as a 2D Array, from the specified user
+     * @param $userId
+     * @return array|null
+     */
     public function getLastFiveLatencyAveragesOfUser($userId)
     {
         $lastFiveAverages = array();
@@ -132,6 +147,10 @@ class averages {
         return $getDurationAverages;
     }
 
+    /**
+     * @param $avId
+     * @return array|mixed|null
+     */
     public function getIntervalAveragesById($avId) {
         $getIntervalAverages = array();
         $avId = (int)$avId;
@@ -145,6 +164,10 @@ class averages {
         return $getIntervalAverages;
     }
 
+    /**
+     * @param $avId
+     * @return array|mixed|null
+     */
     public function getLatencyAveragesById($avId) {
         $getLatencyAverages = array();
         $avId = (int)$avId;
@@ -158,6 +181,9 @@ class averages {
         return $getLatencyAverages;
     }
 
+    /**
+     * @return null
+     */
     public function getLastAverageID() {
 
         $res = db::doQuery(

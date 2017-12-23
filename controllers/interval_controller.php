@@ -22,11 +22,17 @@ class interval_controller {
     }
 
 
+    /**
+     * @return interval
+     */
     public function getIntervalModel() {
 
         return $this->intervalModel;
     }
 
+    /**
+     * @return string
+     */
     public function getIntervalAverage() {
 
         $userID = $_SESSION['userID'];
@@ -35,6 +41,10 @@ class interval_controller {
     }
 
 
+    /**
+     * saves the new interval in the database
+     * @param $interval
+     */
     public function saveIntervalInDB($interval) {
 
         $userID = $_SESSION['userID'];
@@ -42,6 +52,9 @@ class interval_controller {
     }
 
 
+    /**
+     *
+     */
     public function saveIntervalAverage() {
 
         $userID = $_SESSION['userID'];

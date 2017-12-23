@@ -38,6 +38,7 @@ class interval {
 
 
     /**
+     * returns the last 5 intervals as a 2D Array, from the specified user
      * @param $userId
      * @return array|null
      */
@@ -73,6 +74,9 @@ class interval {
     }
 
 
+    /**
+     * @return null
+     */
     public function getLastIntervalID() {
 
         $res = db::doQuery(

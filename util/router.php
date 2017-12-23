@@ -7,7 +7,11 @@
  */
 
 
-
+/**
+ * Ziel dieser Klasse ist es, die routen für die entsprechenden model, views und controller festzulegen, damit jedes
+ * model den richtigen controller und die entsprechende view erhält.
+ * Class router
+ */
 
 class router
 {
@@ -15,7 +19,7 @@ class router
 
     function __construct()
     {
-        /**in der table wird eine Router festgelegt. Anschliessend werden Klassenname
+        /**in der table wird eine Router festgelegt. Anschliessend werden Klassennamen
          * gebraucht. Es werden keine Objekte übergeben. Ziel ist es, dass die Instanzen
          * erst erzeugt werden, wenn sie gebraucht werden.
          * **/

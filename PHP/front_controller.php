@@ -8,6 +8,7 @@ include_once "../controllers/averages_controller.php";
 
 $data = authenticate();
 $authenticated = $data['authenticated'];
+$userID = $data['userID'];
 
 $durationController = new duration_controller();
 $intervalController = new interval_controller();
@@ -49,7 +50,7 @@ if ($authenticated == true) {
             //If comparison successful go to home.php
             header('location: http://localhost:63342/Projekt-1/views/home.php');
         } else {
-            echo "False Compare";
+            echo "Benutzer nicht erkannt";
         }
     }
     else {

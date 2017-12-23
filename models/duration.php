@@ -39,6 +39,7 @@ class duration {
 
 
     /**
+     * returns the last 5 durations as a 2D Array, from the specified user
      * @param $userId
      * @return array|null
      */
@@ -73,6 +74,10 @@ class duration {
         return $getDuration;
     }
 
+    /**
+     * returns the dur_id from the last entry
+     * @return null
+     */
     public function getLastDurationID() {
 
         $res = db::doQuery(

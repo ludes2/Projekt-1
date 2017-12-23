@@ -9,6 +9,8 @@
 include_once "db.php";
 
 /**
+ * this function verify's the login information. if the email exists it continues and verify's the password, if the
+ * password is correct an array is returned with true and the userID, else false is returned.
  * @param $email
  * @param $password
  * @return array|bool

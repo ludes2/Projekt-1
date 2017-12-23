@@ -27,6 +27,9 @@ class duration_controller {
     }
 
 
+    /**
+     * @return string
+     */
     public function getDurationAverage() {
 
         $userID = $_SESSION['userID'];
@@ -35,6 +38,10 @@ class duration_controller {
     }
 
 
+    /**
+     * saves the new duration in the database
+     * @param $duration
+     */
     public function saveDurationInDB($duration) {
 
         $userID = $_SESSION['userID'];

@@ -6,6 +6,11 @@
  * Time: 13:54
  */
 
+/**
+ * definiert eine new route.
+ * Class route
+ */
+
 class route
 {
     private $model;

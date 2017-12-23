@@ -22,12 +22,18 @@ class latency_controller {
     }
 
 
+    /**
+     * @return latency
+     */
     public function getLatencyModel() {
 
         return $this->latencyModel;
     }
 
 
+    /**
+     * @return string
+     */
     public function getLatencyAverage() {
 
         $userID = $_SESSION['userID'];
@@ -36,6 +42,10 @@ class latency_controller {
     }
 
 
+    /**
+     * saves the new latency in the database
+     * @param $latency
+     */
     public function saveLatencyInDB($latency) {
 
 
@@ -44,6 +54,9 @@ class latency_controller {
     }
 
 
+    /**
+     *
+     */
     public function saveLatencyAverage() {
 
         $userID = $_SESSION['userID'];

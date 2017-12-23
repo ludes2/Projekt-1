@@ -8,6 +8,9 @@
 require_once "login.php";
 
 /**
+ * this function checks the session status and starts a session if none is already started. it calls the "checklogin" function
+ * with the POST-parameters 'email' and 'password'.
+ * it returns an array with true or false and the userID if true.
  * @return array|bool
  */
 
